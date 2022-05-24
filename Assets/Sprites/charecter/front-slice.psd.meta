@@ -1,0 +1,347 @@
+fileFormatVersion: 2
+guid: e1350072fe5962347a213c1c0ceb9a94
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 177033967805064694
+    second: front-slice_0
+  - first:
+      213: -7126382849327405955
+    second: front-slice_1
+  - first:
+      213: -3288104127578750987
+    second: front-slice_2
+  - first:
+      213: -7196009717796451510
+    second: front-slice_3
+  - first:
+      213: -2171053092458449060
+    second: front-slice_4
+  - first:
+      213: 3606496392705265367
+    second: front-slice_5
+  - first:
+      213: -9076327091178725996
+    second: front-slice_6
+  - first:
+      213: -2507408646178697196
+    second: front-slice_7
+  - first:
+      213: 7831662026734919338
+    second: front-slice_8
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: front-slice_0
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 690
+        width: 247
+        height: 298
+      alignment: 9
+      pivot: {x: 0.8488673, y: 0.91232383}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5e23ca473f47200800000000000000
+      internalID: 177033967805064694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_1
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 214
+        width: 838
+        height: 774
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7467644e800a1d90800000000000000
+      internalID: -7126382849327405955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_2
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 717
+        width: 262
+        height: 271
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ff3c2397be4e52d0800000000000000
+      internalID: -3288104127578750987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_3
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 726
+        width: 254
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4bcb7aa943a22c90800000000000000
+      internalID: -7196009717796451510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_4
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 354
+        width: 262
+        height: 225
+      alignment: 9
+      pivot: {x: 0.40864056, y: 0.8829788}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c57308317beded1e0800000000000000
+      internalID: -2171053092458449060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_5
+      rect:
+        serializedVersion: 2
+        x: 1279
+        y: 74
+        width: 206
+        height: 504
+      alignment: 9
+      pivot: {x: 0.25211728, y: 0.06306971}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7decce27c59dc0230800000000000000
+      internalID: 3606496392705265367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_6
+      rect:
+        serializedVersion: 2
+        x: 1564
+        y: 174
+        width: 310
+        height: 227
+      alignment: 9
+      pivot: {x: 0.08819501, y: 0.78118813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49d990959986a0280800000000000000
+      internalID: -9076327091178725996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_7
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 56
+        width: 276
+        height: 230
+      alignment: 9
+      pivot: {x: 0.4826549, y: 0.87465304}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41096c10f15e33dd0800000000000000
+      internalID: -2507408646178697196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: front-slice_8
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 44
+        width: 436
+        height: 126
+      alignment: 9
+      pivot: {x: 0.5000001, y: 0.5886526}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aae53709e17afac60800000000000000
+      internalID: 7831662026734919338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      front-slice_1: -7126382849327405955
+      front-slice_4: -2171053092458449060
+      front-slice_5: 3606496392705265367
+      front-slice_0: 177033967805064694
+      front-slice_6: -9076327091178725996
+      front-slice_8: 7831662026734919338
+      front-slice_2: -3288104127578750987
+      front-slice_7: -2507408646178697196
+      front-slice_3: -7196009717796451510
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
