@@ -45481,3 +45481,59 @@ Best fitness at round 3 and generation 5 is : 0.6129032
 best fitness possible : 12
 best gene : | 0 -1 -1  | -1 -1 -1  | 1 -1 0  | -1 -1 -1  | 
 Best fitness at round 4 and generation 1 is : 8.290322
+Best fitness at round 1 and generation 1 is : 2
+Best fitness at round 1 and generation 2 is : 2
+Best fitness at round 1 and generation 3 is : 2
+Best fitness at round 1 and generation 4 is : 2
+Best fitness at round 1 and generation 5 is : 2
+best fitness possible : 2
+best gene : | 0  | 0  |  |  | 
+Best fitness at round 2 and generation 1 is : 6
+Best fitness at round 2 and generation 2 is : 6
+Best fitness at round 2 and generation 3 is : 6
+Best fitness at round 2 and generation 4 is : 6
+Best fitness at round 2 and generation 5 is : 6
+best fitness possible : 6
+best gene : | 0 0  | 0 0  | 0  | 0  | 
+Best fitness at round 3 and generation 1 is : 12
+Best fitness at round 3 and generation 2 is : 12
+Best fitness at round 3 and generation 3 is : 12
+Best fitness at round 3 and generation 4 is : 12
+Best fitness at round 3 and generation 5 is : 12
+best fitness possible : 12
+best gene : | 0 0 0  | 0 0 0  | 0 0 0  | 0 0 0  | 
+Best fitness at round 4 and generation 1 is : 8
+Best fitness at round 4 and generation 2 is : 13
+Best fitness at round 4 and generation 3 is : 13
+Best fitness at round 4 and generation 4 is : 13
+Best fitness at round 4 and generation 5 is : 13
+best fitness possible : 20
+best gene : | 2 2 2 -1  | 2 0 0 -1  | 0 2 0 0  | 0 2 2 -1  | 
+Best fitness at round 5 and generation 1 is : 15
+Best fitness at round 5 and generation 2 is : 15
+Best fitness at round 5 and generation 3 is : 15
+Best fitness at round 5 and generation 4 is : 15
+Best fitness at round 5 and generation 5 is : 16
+best fitness possible : 30
+best gene : | 2 0 0 0 0  | 2 0 0 -1 -1  | 0 0 2 1 0  | 2 2 -1 0 -1  | 
+Best fitness at round 6 and generation 1 is : 12
+Best fitness at round 6 and generation 2 is : 12
+Best fitness at round 6 and generation 3 is : 12
+Best fitness at round 6 and generation 4 is : 15
+Best fitness at round 6 and generation 5 is : 17
+best fitness possible : 42
+best gene : | 0 0 0 2 2  | 2 2 0 2 2  | 1 0 1 2 -1  | -1 0 0 0 -1  | 
+Best fitness at round 7 and generation 1 is : 15
+Best fitness at round 7 and generation 2 is : 16
+Best fitness at round 7 and generation 3 is : 16
+Best fitness at round 7 and generation 4 is : 16
+Best fitness at round 7 and generation 5 is : 20
+best fitness possible : 56
+best gene : | 0 1 0 2 0  | 2 3 2 2 0  | 3 0 0 0 2  | 0 0 2 2 0  | 
+Best fitness at round 1 and generation 1 is : 2
+Best fitness at round 1 and generation 2 is : 2
+Best fitness at round 1 and generation 3 is : 2
+Best fitness at round 1 and generation 4 is : 2
+Best fitness at round 1 and generation 5 is : 2
+best fitness possible : 2
+best gene : | 0  | 0  |  |  | 
