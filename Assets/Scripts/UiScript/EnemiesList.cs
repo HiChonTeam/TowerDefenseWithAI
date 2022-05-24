@@ -46,12 +46,12 @@ public class EnemiesList : MonoBehaviour
                         if(enemyComp.getName() == "Basic"){
                             // Debug.Log(enemyComp.getName());
                             ShowEnemies1.sprite = NormalEnemy;
-                            ShowEnemies2.sprite = NormalEnemy; 
+                            //ShowEnemies2.sprite = NormalEnemy; 
                         }
                         else if(enemyComp.getName() == "Elite"){
                             // Debug.Log(enemyComp.getName());
                             ShowEnemies1.sprite = NormalEnemy; 
-                            ShowEnemies2.sprite = NormalEnemy; 
+                            //ShowEnemies2.sprite = NormalEnemy; 
                         }
                         // enemyComp.takeConstantDamage(0.25f);
                         // enemyComp.increasePhysicDamageReceive(0.1f);
