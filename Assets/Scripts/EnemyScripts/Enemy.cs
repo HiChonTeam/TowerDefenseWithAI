@@ -291,10 +291,18 @@ public class Enemy : MonoBehaviour
     private void goal()
     {
         EnemiesOnMap.enemiesOnMap[path].Remove(gameObject);
-        StatusController.userLife -= 1;
+        
         if(simulating)
         {
             population.setFitness(1f);
+        }
+        else
+        {
+            StatusController.userLife -= 1;
+            if(StatusController.userLife <= 0)
+            {
+                StatusController.isGameOver = true;
+            }
         }
         Destroy(transform.gameObject);
     }
@@ -334,7 +342,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        checkPosition();
-        moveEnemy();
+        if(!StatusController.isGameOver)
+        {
+            checkPosition();
+            moveEnemy();
+        }
     }
 }

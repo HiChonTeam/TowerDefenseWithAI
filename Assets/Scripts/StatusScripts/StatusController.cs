@@ -11,7 +11,7 @@ public class StatusController : MonoBehaviour
 
     public static int userMoney = 500;
     public static int userLife = 20;
-
+    public static bool isGameOver = false;
 
     private void Update(){
         HealthText.text = "Health:"+ userLife;

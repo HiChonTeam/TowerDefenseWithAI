@@ -837,18 +837,22 @@ public class Tower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(currentRange.Count == 0)
+        if(!StatusController.isGameOver)
         {
-            UpdateRange();
-        }
-        enemyInRange = CheckEnemyInRange(); 
-        if(enemyInRange.Count > 0)
-        {
-            if(Time.time >= timeToNextAttack)
+            if(currentRange.Count == 0)
             {
-                Attack();
-                timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
+                UpdateRange();
+            }
+            enemyInRange = CheckEnemyInRange(); 
+            if(enemyInRange.Count > 0)
+            {
+                if(Time.time >= timeToNextAttack)
+                {
+                    Attack();
+                    timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
+                }
             }
         }
+        
     }
 }
