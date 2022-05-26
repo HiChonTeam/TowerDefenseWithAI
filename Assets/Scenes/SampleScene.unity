@@ -350,14 +350,30 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 65066755365695686, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73ac23c0069db0b4299fba0fe7469e83, type: 3}
     - target: {fileID: 65066755493883569, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6efa3d2a87690e340919c285195075ac, type: 3}
+      objectReference: {fileID: 21300000, guid: 7d413850dcff03f48a489abcc678c8d8, type: 3}
+    - target: {fileID: 65066755705061516, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: $ 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 65066756038449517, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: $ 1500
+      objectReference: {fileID: 0}
     - target: {fileID: 65066756108179233, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6efa3d2a87690e340919c285195075ac, type: 3}
+      objectReference: {fileID: 21300000, guid: acd883c72f0584d48a4e9caeb0cb1c5e, type: 3}
+    - target: {fileID: 65066756249551503, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: Witch
+      objectReference: {fileID: 0}
     - target: {fileID: 65066756256718113, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -378,6 +394,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 65066756281810319, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a465820b225f0b848b259f500f11e400, type: 3}
     - target: {fileID: 65066756324378104, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -390,10 +410,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 0748a60b071e55644b489958b8a74de9, type: 3}
+    - target: {fileID: 65066756591305324, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: SniperMagician
+      objectReference: {fileID: 0}
+    - target: {fileID: 65066756598287548, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: $ 1200
+      objectReference: {fileID: 0}
     - target: {fileID: 65066756634774154, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6efa3d2a87690e340919c285195075ac, type: 3}
+      objectReference: {fileID: 21300000, guid: acd883c72f0584d48a4e9caeb0cb1c5e, type: 3}
     - target: {fileID: 65066756714000638, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -414,6 +442,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnclickButton1
       objectReference: {fileID: 0}
+    - target: {fileID: 65066757006153097, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: Archer
+      objectReference: {fileID: 0}
     - target: {fileID: 65066757135999935, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -429,7 +461,11 @@ PrefabInstance:
     - target: {fileID: 65066757223675833, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6efa3d2a87690e340919c285195075ac, type: 3}
+      objectReference: {fileID: 21300000, guid: acb7693f1a24f714f944f4722ff0b2c9, type: 3}
+    - target: {fileID: 65066757327134938, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
+      propertyPath: m_Text
+      value: Sorcerer
+      objectReference: {fileID: 0}
     - target: {fileID: 2264452969135334452, guid: 1ee1149096a25b648adef76481f4de46, type: 3}
       propertyPath: m_Name
       value: HPtxt
@@ -1155,8 +1191,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowEnemies1: {fileID: 2019028098}
   ShowEnemies2: {fileID: 1910715737}
-  NormalEnemy: {fileID: -499488947947290549, guid: 4913c2df741cc8441a20a4508b340936, type: 3}
-  EliteEnemy: {fileID: 21300000, guid: 3458d8fd93bfe9044893756385e0e4f6, type: 3}
+  NormalEnemy: {fileID: 21300000, guid: 3f0cce300531a8e42af7cc43dcfe1ff2, type: 3}
+  EliteEnemy: {fileID: 21300000, guid: d4156e0d22ba07140840801093382b83, type: 3}
+  CamouBasicEnemy: {fileID: 21300000, guid: 27d49624eb2d0414c9b2d7f47a2792f4, type: 3}
+  EliteBasicEnemy: {fileID: 21300000, guid: 547d940182f22174b8abf832c53d8293, type: 3}
 --- !u!1 &2125331913
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,15 +6,18 @@ using UnityEngine.UI;
 public class EnemiesList : MonoBehaviour
 {
     EnemiesOnMap enemy;
-    public Image ShowEnemies1;
-    public Image ShowEnemies2;
+    [SerializeField] private Image ShowEnemies1;
+    [SerializeField] private Image ShowEnemies2;
     // private int i;
     // public GameObject NormalEnemy;
     // private int rounds = 0 ;
     // private int round = 0;
     // public Image Backup;
-    public Sprite NormalEnemy;
-    public Sprite EliteEnemy;
+    [SerializeField] public Sprite NormalEnemy;
+    [SerializeField] public Sprite EliteEnemy;
+    [SerializeField] public Sprite CamouBasicEnemy;
+    [SerializeField] public Sprite EliteBasicEnemy;
+    public
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +45,7 @@ public class EnemiesList : MonoBehaviour
                         // i++;
                         // Debug.Log("Number is bere ===>" + i);
                         Enemy enemyComp = enemy.GetComponent<Enemy>();
-                        //Debug.Log("Name is ==>" + enemyComp.getName());
+                        Debug.Log("Name is ==>" + enemyComp.getName());
                         if(enemyComp.getName() == "Basic"){
                             // Debug.Log(enemyComp.getName());
                             ShowEnemies1.sprite = NormalEnemy;
@@ -50,11 +53,12 @@ public class EnemiesList : MonoBehaviour
                         }
                         else if(enemyComp.getName() == "Elite"){
                             // Debug.Log(enemyComp.getName());
-                            ShowEnemies1.sprite = NormalEnemy; 
+                            ShowEnemies1.sprite = EliteEnemy; 
                             //ShowEnemies2.sprite = NormalEnemy; 
                         }
+                        else if(enemyComp.getName() == "Camou Basic")
                         // enemyComp.takeConstantDamage(0.25f);
-                        // enemyComp.increasePhysicDamageReceive(0.1f);
+                            ShowEnemies1.sprite = NormalEnemy; 
                         // enemyComp.increaseMagicDamageReceive(0.1f);
                     }
             }
