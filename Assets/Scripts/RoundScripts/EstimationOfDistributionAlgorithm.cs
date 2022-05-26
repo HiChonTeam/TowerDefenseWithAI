@@ -6,7 +6,7 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
 {
     [SerializeField] private int populationSize = 5;
     [SerializeField] private int maxGeneration = 5;
-    [SerializeField] private int acceleration = 1000;
+    [SerializeField] private int acceleration = 50;
 
     private int maxCost;
     private int numberOfPaths;
@@ -219,22 +219,21 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
             InsertionSort(trialPops[i]);
         }
         
-        Debug.Log("Best fitness at round " + round + " and generation " + generation + " is : " + pops[0].getFitness());
-        if(generation == maxGeneration)
-        {
-            List<List<int>> g = pops[0].getGene();
-            string sg = "| ";
-            foreach(List<int> path in g)
-            {
-                foreach(int ch in path)
-                {
-                    sg += ch + " ";
-                }
-                sg += " | ";
-            }
-            Debug.Log("best fitness possible : " + (int)(round * (1 + round)));
-            Debug.Log("best gene : " + sg);
-        }
+        Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
+        // if(generation == maxGeneration)
+        // {
+        //     List<List<int>> g = pops[0].getGene();
+        //     string sg = "| ";
+        //     foreach(List<int> path in g)
+        //     {
+        //         foreach(int ch in path)
+        //         {
+        //             sg += ch + " ";
+        //         }
+        //         sg += " | ";
+        //     }
+        //     Debug.Log("best gene : " + sg);
+        // }
         
         trialPops.Clear();
         selectioned = true;

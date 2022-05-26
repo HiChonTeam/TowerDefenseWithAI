@@ -49,7 +49,7 @@ public class MapGenerator : MonoBehaviour
             {
                 GameObject newMapTile = Instantiate(placableMapTile);
                 mapTiles.Add(newMapTile);
-                newMapTile.transform.position = new Vector2(x - 4, -y + 4);
+                newMapTile.transform.position = new Vector2(x - 7, -y + 4);
             }
         }
 
@@ -68,7 +68,7 @@ public class MapGenerator : MonoBehaviour
                 EnemiesOnMap.enemiesOnMap.Add(new List<GameObject>());
                 GameObject newPathTile = Instantiate(entrancePathMapTile);
                 pathsTiles[path].Add(newPathTile);
-                currentPosition = new Vector2(int.Parse(encodedNumbers[0]) - 4, -int.Parse(encodedNumbers[1]) + 4);
+                currentPosition = new Vector2(int.Parse(encodedNumbers[0]) - 7, -int.Parse(encodedNumbers[1]) + 4);
                 newPathTile.transform.position = currentPosition;
             }
             /**create path on left of current position */
@@ -130,7 +130,7 @@ public class MapGenerator : MonoBehaviour
             }
 
             barrierTiles.Add(newMapTile);
-            newMapTile.transform.position = new Vector2(int.Parse(encodedNumbers[0]) - 4, -int.Parse(encodedNumbers[1]) + 4);
+            newMapTile.transform.position = new Vector2(int.Parse(encodedNumbers[0]) - 7, -int.Parse(encodedNumbers[1]) + 4);
         }
     }
 
