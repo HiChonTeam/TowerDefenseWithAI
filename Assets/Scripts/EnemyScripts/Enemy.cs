@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ParticleSystem deathParticle;
     [SerializeField] private ParticleSystem burnParticle;
     [SerializeField] private TextMeshPro popupDamage;
+    [SerializeField] private TextMeshPro popupGameOver;
 
     private GameObject targetTile;
 
@@ -302,6 +303,7 @@ public class Enemy : MonoBehaviour
             if(StatusController.userLife <= 0)
             {
                 StatusController.isGameOver = true;
+                Instantiate(popupGameOver, new Vector3(0, 0, 0), Quaternion.identity);
             }
         }
         Destroy(transform.gameObject);
