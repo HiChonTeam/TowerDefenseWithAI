@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RoundController : MonoBehaviour
 {
-    // public GameObject basicEnemy;
-    // public GameObject eliteEnemy;
     public List<GameObject> allMonster;
 
     public bool isRoundGoing;
@@ -15,8 +13,8 @@ public class RoundController : MonoBehaviour
 
     public int round = 1;
 
-    public float timeForNextRound = 5.0f;
-    // public float timeForNextRound = 0f;
+    public float timeForNextRound = 5.0f; 
+    // public float timeForNextRound = 0f; /* for test */
 
     private List<List<int>> monsterReleaseThisRound = new List<List<int>>();
     public static List<GameObject> monsterAvailable = new List<GameObject>();
@@ -52,7 +50,7 @@ public class RoundController : MonoBehaviour
         edaObj.AddComponent<EstimationOfDistributionAlgorithm>();
         EstimationOfDistributionAlgorithm eda = edaObj.GetComponent<EstimationOfDistributionAlgorithm>(); 
         eda.init( /* use eda algorithm here */
-            (int)(round * (1 + round)), 
+            (int)((round) * Mathf.Ceil(round / 10.0F) + ((round - 1) % 10)), 
             monsterAvailable, 
             MapGenerator.pathsTiles.Count,
             round,
@@ -67,6 +65,7 @@ public class RoundController : MonoBehaviour
         yield return new WaitUntil(() => eda.getIsFinishedSimulate());
         monsterReleaseThisRound = eda.getBestGene();
         isInterMission = true;
+        // isRoundGoing = true; /* for test */
         eda.DumpData();
     }
 
@@ -117,7 +116,7 @@ public class RoundController : MonoBehaviour
         else if(isInterMission)
         {
             isInterMission = false;
-            SpawnEnemies();
+            SpawnEnemies(); 
         }
         else if(isRoundGoing)
         {

@@ -462,6 +462,24 @@ public class Population : MonoBehaviour
     public void evaluate()
     {
         StartCoroutine("ISimulateSpawnEnemies");
+        // for(int c = 0; c < gene[0].Count; c++) /* for test */
+        // {
+        //     for(int path = 0; path < gene.Count; path++)
+        //     {
+        //         try
+        //         {
+        //             List<int> pathList = gene[path];
+        //             if(pathList[c] >= 0)
+        //             {
+        //                 this.setFitness(1.0f);
+        //             }
+        //         }
+        //         catch
+        //         {
+
+        //         }
+        //     }
+        // }
     }
 
     IEnumerator ISimulateSpawnEnemies()

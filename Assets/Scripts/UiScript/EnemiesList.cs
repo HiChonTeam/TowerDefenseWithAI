@@ -45,7 +45,7 @@ public class EnemiesList : MonoBehaviour
                         // i++;
                         // Debug.Log("Number is bere ===>" + i);
                         Enemy enemyComp = enemy.GetComponent<Enemy>();
-                        Debug.Log("Name is ==>" + enemyComp.getName());
+                        // Debug.Log("Name is ==>" + enemyComp.getName());
                         if(enemyComp.getName() == "Basic"){
                             // Debug.Log(enemyComp.getName());
                             ShowEnemies1.sprite = NormalEnemy;
