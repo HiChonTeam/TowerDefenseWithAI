@@ -4,50 +4,163 @@ using UnityEngine;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
-    [SerializeField] private int populationSize = 50;
-    [SerializeField] private int maxGeneration = 100;
+    [SerializeField] private int populationSize = 10;
+    [SerializeField] private int maxGeneration = 5;
     [SerializeField] private float mutationRate = 0.15f;
+    [SerializeField] private int acceleration = 50;
 
     private int maxCost;
+    private int numberOfPaths;
     private List<GameObject> availableMonster;
 
     private int round = 0;
 
-    Problem prob = new Problem();
+    private int longestGene = 0;
+
+    private bool selectioned = false;
+    private bool isFinishedSimulate = false;
 
     private GameObject populationObject;
 
-    private List<GAPopulation> pops = new List<GAPopulation>(); /* current top fitness pops */
-    private List<GAPopulation> trialPops = new List<GAPopulation>(); /* trial pops where considering to take a place of pops */
+    private List<Population> pops = new List<Population>(); /* current top fitness pops */
+    private List<Population> trialPops = new List<Population>(); /* trial pops where considering to take a place of pops */
     private List<GameObject> allPops = new List<GameObject>(); /* all pop object used for dump data */
     
-    public void init(int maxCost, List<GameObject> availableMonster, int round, GameObject populationObject)
+    public void init(int maxCost, List<GameObject> availableMonster, int numberOfPaths, int round, RoundController roundController, GameObject populationObject)
     {
         this.maxCost = maxCost;
+        this.numberOfPaths = numberOfPaths;
         this.availableMonster = availableMonster;
         this.round = round;
         this.populationObject = populationObject;
 
-        for(int i = 1; i <= populationSize; i++) /* first generation */
-        {
-            GameObject popObj = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
-            popObj.AddComponent<GAPopulation>();
-            GAPopulation gap = popObj.GetComponent<GAPopulation>(); /* first generation */
-            gap.initialize(maxCost, availableMonster, prob);
-            trialPops.Add(gap);
-            allPops.Add(popObj);
-        }
-        selection(1);
-        trialPops = new List<GAPopulation>(); /* clear trial pops */
-        for(int gen = 2; gen <= maxGeneration; gen++) /* run loop each generations */
-        {
-            crossover();
-            selection(gen);
-            trialPops = new List<GAPopulation>(); /* clear trial pops */
-        }
+        StartCoroutine(LifeCycle());
     }    
 
-    public void InsertionSort(GAPopulation p)
+    IEnumerator LifeCycle()
+    {
+        for(int i = 1; i <= populationSize; i++) /* create initial populations */
+        {
+            (Population p, GameObject popObj) = generateInitialPopulation();
+            int c = p.getLongestGene();
+            longestGene = c > longestGene ? c : longestGene;
+            trialPops.Add(p);
+            allPops.Add(popObj);
+            yield return new WaitUntil(() => p.isFinishedEvaluate() == true);
+        }
+        selection(1);
+        yield return new WaitUntil(() => selectioned); 
+        trialPops = new List<Population>(); /* clear trial pops */
+        for(int gen = 2; gen <= maxGeneration; gen++) /* run loop each generations */
+        {
+            List<int> unmarriagePopNum = new List<int>(); /* address pop that not crossovered */
+            for(int i = 0; i < pops.Count; i++)
+            {
+                unmarriagePopNum.Add(i);
+            }
+            int j = 0;
+            while(unmarriagePopNum.Count > 1)
+            {
+                int rand1 = Random.Range(0, unmarriagePopNum.Count);
+                int rand2 = 0;
+                while(true)
+                {
+                    rand2 = Random.Range(0, unmarriagePopNum.Count); /* random until parent 1 and 2 isn't same */
+                    if(rand2 != rand1)
+                    {
+                        break;
+                    }
+                }
+                (List<List<int>> child1, List<List<int>> child2, List<int> activeGeneNumber) = crossover(unmarriagePopNum[rand1], unmarriagePopNum[rand2], longestGene * numberOfPaths);
+                unmarriagePopNum.RemoveAt(rand1);
+                if(rand1 < rand2)
+                {
+                    unmarriagePopNum.RemoveAt(rand2 - 1);
+                }
+                else
+                {
+                    unmarriagePopNum.RemoveAt(rand2);
+                }
+                
+                List<List<List<int>>> children = new List<List<List<int>>>(){child1, child2};
+                
+                for(int cn = 0; cn < children.Count; cn++)
+                {
+                    /* add trial populations */
+                    GameObject popObj = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
+                    popObj.AddComponent<Population>();
+                    Population tp = popObj.GetComponent<Population>();
+                    tp.initialize(children[cn], availableMonster, numberOfPaths, acceleration, activeGeneNumber[cn]);
+                    int ch = tp.getLongestGene();
+                    longestGene = ch > longestGene ? ch : longestGene;
+                    trialPops.Add(tp);
+                    yield return new WaitUntil(() => trialPops[j].isFinishedEvaluate() == true);
+                    j++;
+                }
+                
+            }
+            selection(gen);
+            yield return new WaitUntil(() => selectioned);
+            trialPops = new List<Population>(); /* clear trial pops */
+        }
+        isFinishedSimulate = true;
+    }
+
+    private (Population, GameObject) generateInitialPopulation()
+    {
+        List<List<int>> gene  = new List<List<int>>();
+        int costLeft = maxCost;
+        int activeGeneNumber = 0;
+
+        for(int i = 0; i < numberOfPaths; i++)
+        {
+            gene.Add(new List<int>());
+        }
+        
+        for(int iter = 0; costLeft >= 0; iter++)
+        {
+            List<int> affordableMonster = findAffordableMonster(costLeft);
+
+            if(affordableMonster.Count == 0) /* if not have any affordable then break loop */
+            {
+                break;
+            }
+
+            int rand = Random.Range((int)(Mathf.Ceil(-1 * (affordableMonster.Count / 3))), affordableMonster.Count);
+            if(rand < 0) /* temporary stop release monster on this path */
+            {
+                gene[iter % numberOfPaths].Add(-1);
+            }
+            else /* add deploy order on gene [path number] */
+            {
+                gene[iter % numberOfPaths].Add(affordableMonster[rand]);
+                costLeft -= availableMonster[affordableMonster[rand]].GetComponent<Enemy>().getCost();
+                activeGeneNumber++;
+            }
+        }
+
+        GameObject popObj = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
+        popObj.AddComponent<Population>();
+        Population p = popObj.GetComponent<Population>(); /* first generation */
+        p.initialize(gene, availableMonster, numberOfPaths, acceleration, activeGeneNumber);
+
+        return (p, popObj); /* return population */
+    }
+
+    public List<int> findAffordableMonster(int costLeft)
+    {
+        List<int> affordableMonster = new List<int>();
+        for(int i = 0; i < availableMonster.Count; i++) /* check which enemies are affordable */
+        {
+            if(costLeft >= availableMonster[i].GetComponent<Enemy>().getCost())
+            {
+                affordableMonster.Add(i);
+            }
+        }
+        return affordableMonster;
+    }
+
+    private void InsertionSort(Population p)
     {
         bool isInserted = false;
         for(int i = 0; i < pops.Count; i++)
@@ -69,213 +182,206 @@ public class GeneticAlgorithm : MonoBehaviour
         }
     }
 
-    public void selection(int generation)
+    private void selection(int generation)
     {
-        // List<GAPopulation> newPops = new List<GAPopulation>();
-        // List<GAPopulation> currentPops = new List<GAPopulation>(pops);
-        // for(int i = 0; i < trialPops.Count; i++)
-        // {
-        //     currentPops.Add(trialPops[i]);
-        // }
-        // while(newPops.Count <= populationSize && currentPops.Count > 0) /* tournament selection */
-        // {
-        //     float sumFitness = 0.0f;
-        //     for(int i = 0; i < currentPops.Count; i++)
-        //     {
-        //         sumFitness += currentPops[i].getFitness();
-        //     }
-        //     float rand = Random.Range(0.0f, sumFitness);
-        //     for(int i = currentPops.Count - 1; i >= 0; i--)
-        //     {
-        //         rand -= currentPops[i].getFitness();
-        //         if(rand <= 0)
-        //         {
-        //             newPops.Add(currentPops[i]);
-        //             currentPops.RemoveAt(i);
-        //             break;
-        //         }
-        //     }
-        // }
+        selectioned = false;
+        StartCoroutine(WaitForEvaluate(generation));
+    }
+
+    IEnumerator WaitForEvaluate(int generation)
+    {
         for(int i = 0; i < trialPops.Count; i++)
         {
+            yield return new WaitUntil(() => trialPops[i].isFinishedEvaluate() == true);
             InsertionSort(trialPops[i]);
         }
-
+        
         Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
+        
         trialPops.Clear();
+        selectioned = true;
     }
 
-    public void crossover()
+    private (List<List<int>>, List<List<int>>, List<int>) crossover(int parentNum1, int parentNum2, int ChromosomeNum)
     {
-        for(int i = 0; i < pops.Count; i++)
+        List<List<int>> parent1 = pops[parentNum1].getGene();
+        List<List<int>> parent2 = pops[parentNum2].getGene();
+            
+        List<int> cut1 = new List<int>();
+        List<int> cut2 = new List<int>();
+        for(int i = 0; i < numberOfPaths; i++) /* cross by cut half */
         {
-            int rand = 0;
-            while(true)
+            cut1.Add((int)(parent1[i].Count / 2));
+            cut2.Add((int)(parent2[i].Count / 2));
+        }
+
+        List<List<int>> child1 = new List<List<int>>();
+        List<List<int>> child2 = new List<List<int>>();
+
+        for(int i = 0; i < numberOfPaths; i++)
+        {
+            child1.Add(new List<int>());
+            child2.Add(new List<int>());
+            for(int c = 0; c < cut1[i]; c++)
             {
-                rand = Random.Range(0, pops.Count);
-                if(rand != i)
+                child1[i].Add(parent1[i][c]);
+            }
+            for(int c = 0; c < cut2[i]; c++)
+            {
+                child2[i].Add(parent2[i][c]);
+            }
+            for(int c = cut1[i]; c < parent1[i].Count; c++)
+            {
+                child2[i].Add(parent1[i][c]);
+            }
+            for(int c = cut2[i]; c < parent2[i].Count; c++)
+            {
+                child1[i].Add(parent2[i][c]);
+            }
+        }
+        child1 = mutation(child1);
+        child2 = mutation(child2);
+        List<List<List<int>>> children = new List<List<List<int>>>(){child1, child2};
+        List<int> activeGeneNumber = new List<int>(){0, 0};
+
+        for(int i = 0; i < children.Count; i++)
+        {
+            List<List<int>> child = children[i];
+            int costLeft = maxCost;
+            int longestPath = 0;
+            for(int path = 0; path < child.Count; path++)
+            {
+                longestPath = child[path].Count > longestPath ? child[path].Count : longestPath; /* count chromosome of each path */
+                for(int c = 0; c < child[path].Count; c++)
                 {
-                    break;
+                    if(child[path][c] != -1)
+                    {
+                        if(availableMonster[child[path][c]].GetComponent<Enemy>().getCost() > costLeft)
+                        {
+                            child[path][c] = -1;
+                        }
+                        else
+                        {
+                            costLeft -= availableMonster[child[path][c]].GetComponent<Enemy>().getCost();
+                            activeGeneNumber[i]++;
+                        }
+                    }
                 }
             }
-            
-            List<int> parent1 = pops[i].getGene();
-            List<int> parent2 = pops[rand].getGene();
-            
-            int cut1 = (int)(parent1.Count / 2); /* cross by cut half */
-            int cut2 = (int)(parent2.Count / 2);
 
-            List<int> child1 = new List<int>();
-            List<int> child2 = new List<int>();
 
-            for(int c = 0; c < cut1; c++)
+            if(findAffordableMonster(costLeft).Count > 0) /* fill gene for maximum cost */
             {
-                child1.Add(parent1[c]);
-            }
-            for(int c = 0; c < cut2; c++)
-            {
-                child2.Add(parent2[c]);
-            }
-            for(int c = cut1; c < parent1.Count; c++)
-            {
-                child2.Add(parent1[c]);
-            }
-            for(int c = cut2; c < parent2.Count; c++)
-            {
-                child1.Add(parent2[c]);
-            }
+                bool onGoing = true;
+                for(int c = 0; c < longestPath; c++)
+                {
+                    for(int pathNum = 0; pathNum < child.Count; pathNum++)
+                    {
+                        try /* when gene is feasible solution and still have afforable then rand add them in empty chromosome */
+                        {
+                            List<int> affordableMonsters = findAffordableMonster(costLeft);
+                            if(affordableMonsters.Count == 0)
+                            {
+                                onGoing = false;
+                                break;
+                            }
 
-            GameObject popObj = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
-            popObj.AddComponent<GAPopulation>();
-            GAPopulation gap = popObj.GetComponent<GAPopulation>(); /* first generation */
-            gap.initializeCrossed(child1, mutationRate, maxCost, availableMonster, prob);
-            trialPops.Add(gap);
-            allPops.Add(popObj);
+                            if(child[pathNum][c] == -1)
+                            {
+                                int rand = Random.Range((int)(Mathf.Ceil(-1 * (affordableMonsters.Count / 3))), affordableMonsters.Count);
 
-            GameObject popObj2 = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
-            popObj2.AddComponent<GAPopulation>();
-            GAPopulation gap2 = popObj2.GetComponent<GAPopulation>(); /* first generation */
-            gap2.initializeCrossed(child2,  mutationRate, maxCost, availableMonster, prob);
-            trialPops.Add(gap2);
-            allPops.Add(popObj2);
-        }
+                                if(rand >= 0)
+                                {
+                                    child[pathNum][c] = affordableMonsters[rand];
+                                    costLeft -= availableMonster[affordableMonsters[rand]].GetComponent<Enemy>().getCost();
+                                    activeGeneNumber[i]++;
+                                }
+                                else
+                                {
+                                    child[pathNum][c] = -1;
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            /* do nothing since this chromosome unavailable */
+                        }
+                    }
+
+                    if(onGoing == false)
+                    {
+                        break;
+                    }
+                }
+
+                List<int> affordableMonster = findAffordableMonster(costLeft);
+                while(affordableMonster.Count != 0)
+                {
+                    /* if gene already full but still have affordable monster then */
+                    for(int path = 0; path < child.Count; path++)
+                    {
+                        if(affordableMonster.Count == 0)
+                        {
+                            child[path].Add(-1);
+                            continue;
+                        }
+
+                        int rand = Random.Range((int)(Mathf.Ceil(-1 * (affordableMonster.Count / 3))), affordableMonster.Count);
+
+                        if(rand >= 0)
+                        {
+                            child[path].Add(affordableMonster[rand]);
+                            costLeft -= availableMonster[affordableMonster[rand]].GetComponent<Enemy>().getCost();
+                            activeGeneNumber[i]++;
+                            affordableMonster = findAffordableMonster(costLeft);
+                        }
+                        else
+                        {
+                            child[path].Add(-1);
+                        }
+                    }
+                }
+            }
+        } 
+
+        return (child1, child2, activeGeneNumber);
     }
-}
 
-public class GAPopulation : MonoBehaviour
-{
-    private List<int> gene = new List<int>();
-    private List<GameObject> availableMonster = new List<GameObject>();
-    private float fitness = 0.0f;
-    private Problem prob;
-
-    public void initialize(int maxCost, List<GameObject> availableMonster, Problem prob)
+    private List<List<int>> mutation(List<List<int>> gene)
     {
-        int costLeft = maxCost;
-        this.availableMonster = availableMonster;
-        this.prob = prob;
-
-        for(int iter = 0; costLeft >= 0; iter++)
+        for(int path = 0; path < gene.Count; path++)
         {
-            List<int> affordableMonster = findAffordableMonster(availableMonster, costLeft);
-
-            if(affordableMonster.Count == 0) /* if not have any affordable then break loop */
+            for(int c = 0; c < gene[path].Count; c++)
             {
-                break;
-            }
-
-            int rand = Random.Range(0, affordableMonster.Count);
-            if(rand < 0) /* temporary stop release monster on this path */
-            {
-                gene.Add(-1);
-            }
-            else /* add deploy order on gene [path number] */
-            {
-                gene.Add(affordableMonster[rand]);
-                costLeft -= availableMonster[affordableMonster[rand]].GetComponent<Enemy>().getCost();
+                float rand = Random.Range(0.0f, 1.0f);
+                if(rand < mutationRate)
+                {
+                    int randMon = Random.Range(0, availableMonster.Count);
+                    gene[path][c] = randMon;
+                }
             }
         }
-        evaluate();
-    }
-
-    public void initializeCrossed(List<int> initialGene, float mutationRate, int maxCost, List<GameObject> availableMonster, Problem prob)
-    {
-        int costLeft = maxCost;
-        this.availableMonster = availableMonster;
-        this.prob = prob;
-
-        List<int> mutatedGene = mutation(initialGene, mutationRate, availableMonster);
-        for(int i = 0; i < mutatedGene.Count; i++)
-        {
-
-            if(availableMonster[mutatedGene[i]].GetComponent<Enemy>().getCost() >= costLeft)
-            {
-                mutatedGene.RemoveRange(i, mutatedGene.Count - i);
-                break;
-            }
-            costLeft -= availableMonster[mutatedGene[i]].GetComponent<Enemy>().getCost();
-
-        }
-        while(findAffordableMonster(availableMonster, costLeft).Count > 0)
-        {
-            List<int> affordableMonster = findAffordableMonster(availableMonster, costLeft);
-            int randMon = Random.Range(0, affordableMonster.Count);
-            mutatedGene.Add(randMon);
-            costLeft -= availableMonster[randMon].GetComponent<Enemy>().getCost();
-        }
-
-        this.gene = mutatedGene;
-        evaluate();
-    }
-
-    private void evaluate()
-    {
-        fitness = prob.NoTowerSinglePath(gene);
-    }
-
-    private List<int> mutation(List<int> initialGene, float mutationRate, List<GameObject> availableMonster)
-    {
-        List<int> mutatedGene = new List<int>(initialGene);
-        for(int i = 0; i < mutatedGene.Count; i++)
-        {
-            float rand = Random.Range(0.0f, 1.0f);
-            if(rand < mutationRate)
-            {
-                int randMon = Random.Range(0, availableMonster.Count);
-                mutatedGene[i] = randMon;
-            }
-        }
-        return mutatedGene;
-    }
-
-    public float getFitness()
-    {
-        return fitness;
-    }
-
-    public List<int> getGene()
-    {
         return gene;
     }
 
-    public List<int> findAffordableMonster(List<GameObject> availableMonster, int costLeft)
+    public (List<List<int>>, float) getBestGene()
     {
-        List<int> affordableMonster = new List<int>();
-        for(int i = 0; i < availableMonster.Count; i++) /* check which enemies are affordable */
-        {
-            if(costLeft >= availableMonster[i].GetComponent<Enemy>().getCost())
-            {
-                affordableMonster.Add(i);
-            }
-        }
-        return affordableMonster;
+        return (pops[0].getGene(), pops[0].getFitness()); /* return best fitness population's gene */
     }
-}
 
-public class Problem
-{
-    public float NoTowerSinglePath(List<int> gene)
+    public bool getIsFinishedSimulate()
     {
-        return gene.Count;
+        return isFinishedSimulate;
+    }
+
+    public void DumpData()
+    {
+        for(int i = allPops.Count - 1; i >= 0; i--)
+        {
+            GameObject p = allPops[i];
+            allPops.Remove(p);
+            GameObject.Destroy(p);
+        }
+        Destroy(gameObject);
     }
 }
