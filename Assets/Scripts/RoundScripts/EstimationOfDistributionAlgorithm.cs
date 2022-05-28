@@ -10,7 +10,7 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
 
     private int maxCost;
     private int numberOfPaths;
-    [SerializeField] private List<GameObject> availableMonster;
+    private List<GameObject> availableMonster;
 
     private int round = 0;
     
@@ -19,9 +19,9 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
     private bool selectioned = false;
     private bool isFinishedSimulate = false;
 
-    private List<Population> pops = new List<Population>();
-    private List<Population> trialPops = new List<Population>();
-    private List<GameObject> allPops = new List<GameObject>();
+    private List<Population> pops = new List<Population>(); /* current top fitness pops */
+    private List<Population> trialPops = new List<Population>(); /* trial pops where considering to take a place of pops */
+    private List<GameObject> allPops = new List<GameObject>(); /* all pop object used for dump data */
 
     public GameObject populationObject;
 
@@ -49,17 +49,6 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
             trialPops.Add(p);
             allPops.Add(popObj);
             yield return new WaitUntil(() => p.isFinishedEvaluate() == true);
-            // List<List<int>> g = p.getGene();
-            // string sg = "";
-            // foreach(List<int> path in g)
-            // {
-            //     foreach(int ch in path)
-            //     {
-            //         sg += ch + " ";
-            //     }
-            //     sg += " | ";
-            // }
-            // Debug.Log("gen : 1" + ", pop : " + i + ", fitness : " + p.getFitness() + "\ngene : " + sg);
         }
         selection(1);
         yield return new WaitUntil(() => selectioned); 
@@ -70,17 +59,6 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
             {
                 sampling(longestGene * numberOfPaths);
                 yield return new WaitUntil(() => trialPops[i - 1].isFinishedEvaluate() == true);
-                // List<List<int>> g = trialPops[i - 1].getGene();
-                // string sg = "";
-                // foreach(List<int> path in g)
-                // {
-                //     foreach(int ch in path)
-                //     {
-                //         sg += ch + " ";
-                //     }
-                //     sg += " | ";
-                // }
-                // Debug.Log("gen : " + gen + ", pop : " + i + ", fitness : " + trialPops[i - 1].getFitness() + "\ngene : " + sg);
             }
             selection(gen);
             yield return new WaitUntil(() => selectioned);
@@ -220,20 +198,6 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
         }
         
         Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
-        // if(generation == maxGeneration)
-        // {
-        //     List<List<int>> g = pops[0].getGene();
-        //     string sg = "| ";
-        //     foreach(List<int> path in g)
-        //     {
-        //         foreach(int ch in path)
-        //         {
-        //             sg += ch + " ";
-        //         }
-        //         sg += " | ";
-        //     }
-        //     Debug.Log("best gene : " + sg);
-        // }
         
         trialPops.Clear();
         selectioned = true;
@@ -249,25 +213,13 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
         }
         Destroy(gameObject);
     }
-
-    // private void Start()
-    // {
-    //     float func_time = Time.realtimeSinceStartup;
-    //     for(int i = 10000; i <= 80000; i *= 2)
-    //     {
-    //         init(i, availableMonster, 5);
-    //         func_time = Time.realtimeSinceStartup - func_time;
-    //         Debug.Log("EDA Run time on " + i.ToString() + " maximum deploy cost is " + func_time.ToString("F2") + "s");
-    //     }
-        
-    // }
 }
 
 public class Population : MonoBehaviour
 {
     private List<List<int>> gene = new List<List<int>>();
     private int activeGeneNumber = 0; /* number of gene that is not -1 (release monster) */
-    private int numberOfFitnessCount = 0;
+    private int numberOfFitnessCount = 0; /* number of moster in this gene that already count fitness */
     private List<GameObject> availableMonster = new List<GameObject>();
     private float fitness = 0.0f;
     private int acceleration;
@@ -516,14 +468,6 @@ public class Population : MonoBehaviour
     public void setFitness(float fitness)
     {
         numberOfFitnessCount++;
-        // if(fitness >= 1.0f)
-        // {
-        //     this.fitness = (float)(Mathf.Floor(this.fitness + fitness));  /* if enemy can reach goal then add 1 to fitness */
-        // }
-        // else if(this.fitness < fitness)
-        // {
-        //     this.fitness = fitness; /* if enemy can't reach goal and can go farthest from record */
-        // }
         if(fitness >= 1.0f)
         {
             this.fitness += fitness;  /* if enemy can reach goal then add 1 to fitness */

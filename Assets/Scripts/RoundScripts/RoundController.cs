@@ -104,12 +104,25 @@ public class RoundController : MonoBehaviour
         isRoundGoing = true;
     }
 
-    
+    private void SimulateGA()
+    {
+        GameObject gaObj = Instantiate(edaObject, new Vector3(0, 0, 0), transform.rotation);
+        gaObj.AddComponent<GeneticAlgorithm>();
+        GeneticAlgorithm ga = gaObj.GetComponent<GeneticAlgorithm>(); 
+        ga.init( /* use ga algorithm here */
+            (int)((round) * Mathf.Ceil(round / 10.0F) + ((round - 1) % 10)), 
+            monsterAvailable, 
+            round,
+            edaObject
+        ); 
+        isRoundGoing = true;
+    }
 
     private void Update()
     {
         if(isSimulating)
         {
+            // SimulateGA(); /* for test GA */
             isSimulating = false;
             SimulateSpawnEnemies();
         }
