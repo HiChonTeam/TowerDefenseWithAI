@@ -6,6 +6,8 @@ public class RoundController : MonoBehaviour
 {
     // public GameObject basicEnemy;
     // public GameObject eliteEnemy;
+
+    private EnemiesList enemieslist;
     public List<GameObject> allMonster;
 
     public bool isRoundGoing;
@@ -18,18 +20,23 @@ public class RoundController : MonoBehaviour
     public float timeForNextRound = 5.0f;
     // public float timeForNextRound = 0f;
 
-    private List<List<int>> monsterReleaseThisRound = new List<List<int>>();
+    public static List<List<int>> monsterReleaseThisRound = new List<List<int>>();
     public static List<GameObject> monsterAvailable = new List<GameObject>();
 
+    // public static List<List<GameObject>> enemiesOnMap = new List<List<GameObject>>();
+    //public static List<List<int>> MonsterOnThisRound = new List<List<int>>();
     public GameObject edaObject;
 
     private void Start()
     {
+        
+        enemieslist = GetComponent<EnemiesList>();
         isRoundGoing = false;
         isSimulating = false;
         isInterMission = false;
         isWaitingForUser = true;
         monsterAvailable = new List<GameObject>(){allMonster[0]};
+        enemieslist.CheckSlotIsFull(monsterAvailable);
 
         InvokeRepeating("SecondPassed", 1f, 1f);  //1s delay, repeat every 1s
     }
@@ -66,6 +73,8 @@ public class RoundController : MonoBehaviour
     {
         yield return new WaitUntil(() => eda.getIsFinishedSimulate());
         monsterReleaseThisRound = eda.getBestGene();
+        //Debug.Log("BestGene =" , monsterReleaseThisRound[1]);
+        //MonsterOnThisRound = eda.getBestGene();
         isInterMission = true;
         eda.DumpData();
     }
@@ -131,6 +140,7 @@ public class RoundController : MonoBehaviour
             }
             if(!isStillHaveEnemy)
             {
+                enemieslist.CheckSlotIsFull(monsterAvailable);
                 foreach(GameObject tower in TowerOnMap.towersOnMap)
                 {
                     tower.GetComponent<Tower>().NoticeEndOfWave(); /* trigger tower end of wave event */
@@ -139,11 +149,14 @@ public class RoundController : MonoBehaviour
                 isWaitingForUser = true;
                 isRoundGoing = false;
                 timeForNextRound = Time.time + 5.0f;
-
                 round++;
+                Debug.Log("Round is" + round);
+                
                 if(round % 2 == 0 && monsterAvailable.Count < allMonster.Count)
                 {
                     monsterAvailable.Add(allMonster[monsterAvailable.Count]);
+                    enemieslist.CheckSlotIsFull(monsterAvailable);
+                    //enemieslist.CheckSlotIsFull(monsterAvailable);
                 }
             }
         }

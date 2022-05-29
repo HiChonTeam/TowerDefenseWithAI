@@ -134,7 +134,6 @@ public class TowerPlacement : MonoBehaviour
     }
 
     public static void PurchaseTurrent(int TowerType){
-        Debug.Log("Ma Nee Laew");
         TowerTypeNum = TowerType;
         
         clickbuytower = true;
