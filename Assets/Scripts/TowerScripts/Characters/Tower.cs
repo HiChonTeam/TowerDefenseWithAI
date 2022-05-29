@@ -129,9 +129,12 @@ public class Tower : MonoBehaviour
                     isFirstTarget = false;
                     targets--;
 
-                    Debug.Log("+++++++++++++ Attack +++++++++++++");
+                    if(!enemyScript.getSimulating())
+                    {
+                        Debug.Log("+++++++++++++ Attack +++++++++++++");
 
-                    setAnimationAttack();
+                        setAnimationAttack();
+                    }
 
                     AfterAttack(enemyInRange[i]);
                 }
