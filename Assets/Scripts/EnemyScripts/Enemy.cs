@@ -308,7 +308,6 @@ public class Enemy : MonoBehaviour
                 Instantiate(popupGameOver, new Vector3(0, 0, 0), Quaternion.identity);
                 Instantiate(popupGameOverButton, new Vector3(0, 0, 0), Quaternion.identity);
                 //popupGameOverButton.transform.SetParent(null);
-
             }
         }
         Destroy(transform.gameObject);

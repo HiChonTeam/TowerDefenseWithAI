@@ -97,7 +97,7 @@ public class TowerPlacement : MonoBehaviour
             mousePosition.x <= towerPosition.x + (towerPosition.y - mousePosition.y)
         )
         {
-            GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
+            GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "down");
             TowerOnMap.towersOnMap.Add(newTower);
         }
@@ -107,7 +107,7 @@ public class TowerPlacement : MonoBehaviour
             mousePosition.y >= towerPosition.y - (towerPosition.x - mousePosition.x)
         )
         {
-            GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
+            GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "left");
             TowerOnMap.towersOnMap.Add(newTower);
         }

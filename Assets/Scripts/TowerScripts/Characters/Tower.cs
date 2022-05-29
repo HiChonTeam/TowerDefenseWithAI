@@ -129,7 +129,7 @@ public class Tower : MonoBehaviour
                     isFirstTarget = false;
                     targets--;
 
-                    // Debug.Log("+++++++++++++ Attack +++++++++++++");
+                    //Debug.Log("+++++++++++++ Attack +++++++++++++");
 
                     setAnimationAttack();
 
@@ -845,8 +845,11 @@ public class Tower : MonoBehaviour
             List<Vector2> atkRange = UpdateRange();
             foreach(Vector2 grid in atkRange)
             {
-                GameObject newAtkGrid = Instantiate(rangeGrid, new Vector3(grid.x, grid.y, 0), Quaternion.identity);
-                atkGrid.Add(newAtkGrid);
+                if(grid.x >= -7 && grid.x <= 1 && grid.y >= -4 && grid.y <= 4)
+                {
+                    GameObject newAtkGrid = Instantiate(rangeGrid, new Vector3(grid.x, grid.y, 0), Quaternion.identity);
+                    atkGrid.Add(newAtkGrid);
+                }
             }
         }
     }
@@ -873,21 +876,17 @@ public class Tower : MonoBehaviour
         if(!StatusController.isGameOver)
         {
             UpdateRange();
-        }
-        enemyInRange = CheckEnemyInRange(); 
-        if(enemyInRange.Count > 0)
-        {
-            if(Time.time >= timeToNextAttack)
+            enemyInRange = CheckEnemyInRange(); 
+            if(enemyInRange.Count > 0)
             {
-               
-                Attack();
-                timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
-                setAnimationIdle();
+                if(Time.time >= timeToNextAttack)
+                {
+                
+                    Attack();
+                    timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
+                    setAnimationIdle();
+                }
             }
-
-            
         }
-
-        
     }
 }
