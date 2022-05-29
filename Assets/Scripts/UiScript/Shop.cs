@@ -23,6 +23,7 @@ public class Shop : TowerPlacement
 
     public void OnclickButton1(){
         Cost = 500;
+        //Debug.Log("Shoppppppppppppppppppppppppppppppppppppppppppppppp");
         if(CheckMoneyEnough(Cost) == true){
             PurchaseTurrent(1);
         }

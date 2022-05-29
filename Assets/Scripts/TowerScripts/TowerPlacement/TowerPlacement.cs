@@ -64,6 +64,7 @@ public class TowerPlacement : MonoBehaviour
         {
             if(towerHit)
             {
+                Debug.Log("Tower Hittttttttttttttttttttttttttttttttttttttt");
                 towerHit.transform.gameObject.GetComponent<Tower>().UpgradeSkill(1);
             }
         }
@@ -150,6 +151,7 @@ public class TowerPlacement : MonoBehaviour
         {
             if(buyingPharse)
             {
+                //buyingPharse = false;
                 GetCurrentHoverTile();
             }
             else if(directionPharse)
@@ -160,10 +162,11 @@ public class TowerPlacement : MonoBehaviour
         }
         if(TowerTypeNum == 1)
         {
-
+            Debug.Log("TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = swordsman;
+                TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
         }
@@ -173,6 +176,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = sniperMagician;
+                TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
         }
@@ -182,6 +186,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = sorcerer;
+                TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
         }
@@ -191,6 +196,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = archer;
+                TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
         }
@@ -200,11 +206,13 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = witch;
+                TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
         }
         // if(Input.GetKeyDown(KeyCode.Alpha0))
         // {
+        //     Debug.Log("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         //     if(buyingPharse)
         //     {
         //         selectingTower = null;
