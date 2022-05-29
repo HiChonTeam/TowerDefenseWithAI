@@ -129,7 +129,7 @@ public class Tower : MonoBehaviour
                     isFirstTarget = false;
                     targets--;
 
-                    // Debug.Log("+++++++++++++ Attack +++++++++++++");
+                    Debug.Log("+++++++++++++ Attack +++++++++++++");
 
                     setAnimationAttack();
 
@@ -874,6 +874,9 @@ public class Tower : MonoBehaviour
         {
             UpdateRange();
         }
+
+        setAnimationIdle();
+
         enemyInRange = CheckEnemyInRange(); 
         if(enemyInRange.Count > 0)
         {
@@ -882,12 +885,12 @@ public class Tower : MonoBehaviour
                
                 Attack();
                 timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
-                setAnimationIdle();
+                
             }
-
+            
             
         }
-
+        
         
     }
 }
