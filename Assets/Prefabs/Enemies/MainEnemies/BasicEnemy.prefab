@@ -140,6 +140,7 @@ MonoBehaviour:
   deathParticle: {fileID: 3974957719937995501, guid: eedcf8d471fbbd747b30461a28dd52d5, type: 3}
   burnParticle: {fileID: 1118469326235461056, guid: 272da54fb5ac97b44ab7559209362e3e, type: 3}
   popupDamage: {fileID: 125986407695221692, guid: a18776c8ebf5e4a48b8c1ab38c995701, type: 3}
+  popupGameOver: {fileID: 125986407695221692, guid: 0acacd0618d071244a806677f256d162, type: 3}
 --- !u!95 &335017734106759997
 Animator:
   serializedVersion: 4

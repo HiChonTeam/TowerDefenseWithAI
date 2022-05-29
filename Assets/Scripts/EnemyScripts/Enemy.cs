@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ParticleSystem deathParticle;
     [SerializeField] private ParticleSystem burnParticle;
     [SerializeField] private TextMeshPro popupDamage;
+    [SerializeField] private TextMeshPro popupGameOver;
 
     private GameObject targetTile;
 
@@ -291,10 +292,19 @@ public class Enemy : MonoBehaviour
     private void goal()
     {
         EnemiesOnMap.enemiesOnMap[path].Remove(gameObject);
-        StatusController.userLife -= 1;
+        
         if(simulating)
         {
             population.setFitness(1f);
+        }
+        else
+        {
+            StatusController.userLife -= 1;
+            if(StatusController.userLife <= 0)
+            {
+                StatusController.isGameOver = true;
+                Instantiate(popupGameOver, new Vector3(0, 0, 0), Quaternion.identity);
+            }
         }
         Destroy(transform.gameObject);
     }
@@ -334,7 +344,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        checkPosition();
-        moveEnemy();
+        if(!StatusController.isGameOver)
+        {
+            checkPosition();
+            moveEnemy();
+        }
     }
 }

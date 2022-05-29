@@ -22,12 +22,12 @@ public class DebugLogToFile : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Log(string logString, string stackTrace, LogType type)
+    public void Log(string logString, string stackTrace, LogType type) /* for test */
     {
-        TextWriter tw = new StreamWriter(filename, true);
+        // TextWriter tw = new StreamWriter(filename, true);
 
-        tw.WriteLine(logString);
+        // tw.WriteLine(logString);
 
-        tw.Close();
+        // tw.Close();
     }
 }
