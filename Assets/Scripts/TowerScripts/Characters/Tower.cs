@@ -839,20 +839,16 @@ public class Tower : MonoBehaviour
     {
         if(!StatusController.isGameOver)
         {
-            if(currentRange.Count == 0)
+            UpdateRange();
+        }
+        enemyInRange = CheckEnemyInRange(); 
+        if(enemyInRange.Count > 0)
+        {
+            if(Time.time >= timeToNextAttack)
             {
-                UpdateRange();
-            }
-            enemyInRange = CheckEnemyInRange(); 
-            if(enemyInRange.Count > 0)
-            {
-                if(Time.time >= timeToNextAttack)
-                {
-                    Attack();
-                    timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
-                }
+                Attack();
+                timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
             }
         }
-        
     }
 }
