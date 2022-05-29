@@ -17,15 +17,24 @@ public class Swordsman : Tower
         animator = GetComponent<Animator>();
     }
 
-     protected override void setAnimationAttack(){
-        
-        // Debug.Log("+++++++++++++++++++++++++++++ isAttack Animation work");
-        animator.SetBool("isAttackAnimation", true);
+    protected override void setAnimationAttack(){
+
+        // if (!animator.GetCurrentAnimatorStateInfo(0).IsName("isAttackAnimation"))
+        // {
+            Debug.Log("+++++++++++++++++++++++++++++ isAttack Animation work");
+            animator.SetBool("isAttackAnimation", true);
+        // }
     }
 
     protected override void setAnimationIdle(){
-        // Debug.Log("------ ------- ------- ------- Idle Animation work");
-        animator.SetBool("isAttackAnimation", false);
+  
+
+        // if (animator.GetCurrentAnimatorStateInfo(0).IsName("isAttackAnimation"))
+        // {
+            // Debug.Log("------ ------- ------- ------- Idle Animation work" );
+            animator.SetBool("isAttackAnimation", false);
+        // }
+        
     } 
 
 

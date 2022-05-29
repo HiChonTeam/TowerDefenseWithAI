@@ -129,7 +129,7 @@ public class Tower : MonoBehaviour
                     isFirstTarget = false;
                     targets--;
 
-                    //Debug.Log("+++++++++++++ Attack +++++++++++++");
+                    Debug.Log("+++++++++++++ Attack +++++++++++++");
 
                     setAnimationAttack();
 
@@ -876,17 +876,24 @@ public class Tower : MonoBehaviour
         if(!StatusController.isGameOver)
         {
             UpdateRange();
-            enemyInRange = CheckEnemyInRange(); 
-            if(enemyInRange.Count > 0)
-            {
-                if(Time.time >= timeToNextAttack)
-                {
-                
-                    Attack();
-                    timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
-                    setAnimationIdle();
-                }
-            }
         }
+
+        setAnimationIdle();
+
+        enemyInRange = CheckEnemyInRange(); 
+        if(enemyInRange.Count > 0)
+        {
+            if(Time.time >= timeToNextAttack)
+            {
+               
+                Attack();
+                timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
+                
+            }
+            
+            
+        }
+        
+        
     }
 }
