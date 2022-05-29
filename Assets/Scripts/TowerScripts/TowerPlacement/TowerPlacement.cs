@@ -58,6 +58,8 @@ public class TowerPlacement : MonoBehaviour
                 else
                 {
                     Debug.Log("unable to place tower");
+                    buyingPharse = false;
+                    clickbuytower = false;
                 }
             }
         }
@@ -150,7 +152,6 @@ public class TowerPlacement : MonoBehaviour
         {
             if(buyingPharse)
             {
-                //buyingPharse = false;
                 GetCurrentHoverTile();
             }
             else if(directionPharse)

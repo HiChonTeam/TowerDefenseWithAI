@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// [RequireComponent(typeof(Button))]
-
 public class Shop : TowerPlacement
 {
     private List<int> Cost = new List<int>(){500, 1200, 700, 500, 1500};

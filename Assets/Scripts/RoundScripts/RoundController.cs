@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RoundController : MonoBehaviour
@@ -15,10 +16,9 @@ public class RoundController : MonoBehaviour
     private bool isWaitingForUser;
     private bool isFinishedReleaseQueue;
     public static bool AIsimulate = false; 
+    public static bool isStartPressed = false;
 
     public int round = 1;
-
-    [SerializeField] private float timeForNextRound = 0f; 
 
     private List<List<int>> monsterReleaseThisRound = new List<List<int>>();
     private float candidateFitness = 0.0f;
@@ -28,6 +28,7 @@ public class RoundController : MonoBehaviour
     [SerializeField] private GameObject edaObject;
     [SerializeField] private TextMeshPro simulatingText;
     [SerializeField] private GameObject transparentBG;
+    [SerializeField] private Button playButton;
     private TextMeshPro simulatingTextObject;
     private GameObject disableBG;
 
@@ -214,9 +215,8 @@ public class RoundController : MonoBehaviour
                 }
                 StatusController.userMoney += 100 + (round * 10);
                 isWaitingForUser = true;
+                playButton.GetComponent<Button>().interactable = true;
                 isRoundGoing = false;
-                timeForNextRound = Time.time + 5.0f;
-                // timeForNextRound = Time.time; /* for test */
                 round++;
                 Debug.Log("Round is" + round);
                 
@@ -229,10 +229,11 @@ public class RoundController : MonoBehaviour
         }
         else if(isWaitingForUser && round <= 30)
         {
-            if(Time.time >= timeForNextRound)
+            if(isStartPressed)
             {
                 isWaitingForUser = false;
                 isSimulating = true;
+                isStartPressed = false;
             }
         }
     }
