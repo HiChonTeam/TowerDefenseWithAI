@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RoundController : MonoBehaviour
 {
+
+    private EnemiesList enemieslist;
     public List<GameObject> allMonster;
 
     public bool isRoundGoing;
@@ -21,16 +23,21 @@ public class RoundController : MonoBehaviour
     private List<List<int>> candidateMonsterReleaseThisRound = new List<List<int>>();
     public static List<GameObject> monsterAvailable = new List<GameObject>();
 
+    // public static List<List<GameObject>> enemiesOnMap = new List<List<GameObject>>();
+    //public static List<List<int>> MonsterOnThisRound = new List<List<int>>();
     public GameObject edaObject;
 
     private void Start()
     {
+        
+        enemieslist = GetComponent<EnemiesList>();
         isRoundGoing = false;
         isSimulating = false;
         isInterMission = false;
         isWaitingForUser = true;
         isFinishedReleaseQueue = true;
         monsterAvailable = new List<GameObject>(){allMonster[0]};
+        enemieslist.CheckSlotIsFull(monsterAvailable);
 
         InvokeRepeating("SecondPassed", 1f, 1f);  //1s delay, repeat every 1s
     }
@@ -190,6 +197,7 @@ public class RoundController : MonoBehaviour
             
             if(!isStillHaveEnemy && isFinishedReleaseQueue)
             {
+                enemieslist.CheckSlotIsFull(monsterAvailable);
                 foreach(GameObject tower in TowerOnMap.towersOnMap)
                 {
                     tower.GetComponent<Tower>().NoticeEndOfWave(); /* trigger tower end of wave event */
@@ -200,9 +208,13 @@ public class RoundController : MonoBehaviour
                 timeForNextRound = Time.time + 5.0f;
                 // timeForNextRound = Time.time; /* for test */
                 round++;
+                Debug.Log("Round is" + round);
+                
                 if(round % 2 == 0 && monsterAvailable.Count < allMonster.Count)
                 {
                     monsterAvailable.Add(allMonster[monsterAvailable.Count]);
+                    enemieslist.CheckSlotIsFull(monsterAvailable);
+                    //enemieslist.CheckSlotIsFull(monsterAvailable);
                 }
             }
         }
