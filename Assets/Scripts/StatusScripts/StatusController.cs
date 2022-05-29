@@ -9,7 +9,7 @@ public class StatusController : MonoBehaviour
     [SerializeField] private Text MoneyText;
     
 
-    public static int userMoney = 500;
+    public static int userMoney = 1000;
     public static int userLife = 20;
 
 
