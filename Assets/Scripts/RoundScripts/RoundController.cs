@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RoundController : MonoBehaviour
 {
-    // public GameObject basicEnemy;
-    // public GameObject eliteEnemy;
 
     private EnemiesList enemieslist;
     public List<GameObject> allMonster;
@@ -14,13 +12,15 @@ public class RoundController : MonoBehaviour
     public bool isSimulating;
     public bool isInterMission;
     public bool isWaitingForUser;
+    public bool isFinishedReleaseQueue;
 
     public int round = 1;
 
-    public float timeForNextRound = 5.0f;
-    // public float timeForNextRound = 0f;
+    public float timeForNextRound = 0f; 
 
-    public static List<List<int>> monsterReleaseThisRound = new List<List<int>>();
+    private List<List<int>> monsterReleaseThisRound = new List<List<int>>();
+    private float candidateFitness = 0.0f;
+    private List<List<int>> candidateMonsterReleaseThisRound = new List<List<int>>();
     public static List<GameObject> monsterAvailable = new List<GameObject>();
 
     // public static List<List<GameObject>> enemiesOnMap = new List<List<GameObject>>();
@@ -35,6 +35,7 @@ public class RoundController : MonoBehaviour
         isSimulating = false;
         isInterMission = false;
         isWaitingForUser = true;
+        isFinishedReleaseQueue = true;
         monsterAvailable = new List<GameObject>(){allMonster[0]};
         enemieslist.CheckSlotIsFull(monsterAvailable);
 
@@ -54,12 +55,11 @@ public class RoundController : MonoBehaviour
 
     private void SimulateSpawnEnemies()
     {
-        // GameObject edaObj = new GameObject("edaObj");
         GameObject edaObj = Instantiate(edaObject, new Vector3(0, 0, 0), transform.rotation);
         edaObj.AddComponent<EstimationOfDistributionAlgorithm>();
         EstimationOfDistributionAlgorithm eda = edaObj.GetComponent<EstimationOfDistributionAlgorithm>(); 
         eda.init( /* use eda algorithm here */
-            (int)(round * (1 + round)), 
+            (int)((round) * Mathf.Ceil(round / 10.0F) + ((round - 1) % 10)), 
             monsterAvailable, 
             MapGenerator.pathsTiles.Count,
             round,
@@ -72,11 +72,52 @@ public class RoundController : MonoBehaviour
     IEnumerator WaitForEDAResult(EstimationOfDistributionAlgorithm eda)
     {
         yield return new WaitUntil(() => eda.getIsFinishedSimulate());
-        monsterReleaseThisRound = eda.getBestGene();
-        //Debug.Log("BestGene =" , monsterReleaseThisRound[1]);
-        //MonsterOnThisRound = eda.getBestGene();
-        isInterMission = true;
+        (candidateMonsterReleaseThisRound, candidateFitness) = eda.getBestGene();
+        SimulateGA();
+        // isInterMission = true;
+        // isRoundGoing = true; /* for test */
         eda.DumpData();
+    }
+
+    private void SimulateGA()
+    {
+        GameObject gaObj = Instantiate(edaObject, new Vector3(0, 0, 0), transform.rotation);
+        gaObj.AddComponent<GeneticAlgorithm>();
+        GeneticAlgorithm ga = gaObj.GetComponent<GeneticAlgorithm>(); 
+        ga.init( /* use ga algorithm here */
+            (int)((round) * Mathf.Ceil(round / 10.0F) + ((round - 1) % 10)), 
+            monsterAvailable, 
+            MapGenerator.pathsTiles.Count,
+            round,
+            this,
+            edaObject
+        ); 
+        StartCoroutine(WaitForGAResult(ga));
+    }
+
+    IEnumerator WaitForGAResult(GeneticAlgorithm ga)
+    {
+        yield return new WaitUntil(() => ga.getIsFinishedSimulate());
+        (List<List<int>> gaBestGene, float gaBestFitness) = ga.getBestGene();
+        if(gaBestFitness > candidateFitness)
+        {
+            Debug.Log("GA win");
+            monsterReleaseThisRound = gaBestGene;
+        }
+        else if(gaBestFitness < candidateFitness)
+        {
+            Debug.Log("EDA win");
+            monsterReleaseThisRound = candidateMonsterReleaseThisRound;
+        }
+        else
+        {
+            Debug.Log("Draw");
+            int rand = Random.Range(0, 2);
+            monsterReleaseThisRound = (rand == 0) ? gaBestGene : candidateMonsterReleaseThisRound;
+        }
+        isInterMission = true;
+        // isRoundGoing = true; /* for test */
+        ga.DumpData();
     }
 
     private void SpawnEnemies()
@@ -112,21 +153,36 @@ public class RoundController : MonoBehaviour
         }
 
         isRoundGoing = true;
+        isFinishedReleaseQueue = true;
     }
 
-    
+    private void JustRandom()
+    {
+        GameObject obj = Instantiate(edaObject, new Vector3(0, 0, 0), transform.rotation);
+        obj.AddComponent<JustRandom>();
+        JustRandom jr = obj.GetComponent<JustRandom>(); 
+        jr.init( /* use ga algorithm here */
+            (int)((round) * Mathf.Ceil(round / 10.0F) + ((round - 1) % 10)), 
+            monsterAvailable, 
+            round
+        ); 
+        isRoundGoing = true;
+    }
 
     private void Update()
     {
         if(isSimulating)
         {
+            // JustRandom(); /* for test random */
             isSimulating = false;
-            SimulateSpawnEnemies();
+            SimulateSpawnEnemies(); /* EDA -> GA */
         }
         else if(isInterMission)
         {
             isInterMission = false;
-            SpawnEnemies();
+            isFinishedReleaseQueue = false;
+            // isFinishedReleaseQueue = true; /* for test */
+            SpawnEnemies(); 
         }
         else if(isRoundGoing)
         {
@@ -138,7 +194,8 @@ public class RoundController : MonoBehaviour
                     isStillHaveEnemy = true;
                 }
             }
-            if(!isStillHaveEnemy)
+            
+            if(!isStillHaveEnemy && isFinishedReleaseQueue)
             {
                 enemieslist.CheckSlotIsFull(monsterAvailable);
                 foreach(GameObject tower in TowerOnMap.towersOnMap)
@@ -149,6 +206,7 @@ public class RoundController : MonoBehaviour
                 isWaitingForUser = true;
                 isRoundGoing = false;
                 timeForNextRound = Time.time + 5.0f;
+                // timeForNextRound = Time.time; /* for test */
                 round++;
                 Debug.Log("Round is" + round);
                 

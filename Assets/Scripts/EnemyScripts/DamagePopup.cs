@@ -54,13 +54,14 @@ public class DamagePopup : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if(i >= 200)
+        if(i >= 300)
         {
             Destroy(gameObject);
         }
-        textColor.a -= 0.001f;
+        textColor.a -= 0.0033f;
         textMesh.color = textColor;
-        transform.position += new Vector3(0, 0.005f, 0);
+        float m = (i >= 150 ? -1.0f : 2.0f);
+        transform.position += new Vector3(0.005f * ((450f - i) / 300f), 0.005f * m, 0);
         i += 1;
     }
 }
