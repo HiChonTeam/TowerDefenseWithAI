@@ -363,16 +363,6 @@ ScriptedImporter:
     isImported: 0
     isVisible: 0
   - name: camou
-    spriteName: camou
-    isGroup: 0
-    parentIndex: -1
-    spriteID: bc2b2d4ffd6bcda468dd37c86df98ebb
-    layerID: 71
-    mosaicPosition: {x: 4, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: camou
     spriteName: 
     isGroup: 0
     parentIndex: -1
@@ -482,6 +472,16 @@ ScriptedImporter:
     flatten: 0
     isImported: 0
     isVisible: 0
+  - name: camou
+    spriteName: camou
+    isGroup: 0
+    parentIndex: -1
+    spriteID: bc2b2d4ffd6bcda468dd37c86df98ebb
+    layerID: 71
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: Armoured
     spriteName: Armoured
     isGroup: 0

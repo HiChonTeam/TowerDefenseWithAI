@@ -5,28 +5,13 @@ using UnityEngine;
 public class Swordsman : Tower
 {
 
-    private Animator animator;
-
     // Start is called before the first frame update
     private void Start()
     {
         baseAtk = 1200; 
         baseSpd = 1.0f;
         range = new int[] {1, 1, 1};
-
-        animator = GetComponent<Animator>();
     }
-
-    protected override void setAnimationAttackkk(){
-        
-        // Debug.Log("+++++++++++++++++++++++++++++ isAttack Animation work");
-        animator.SetBool("isAttackAnimation", true);
-    }
-
-    protected override void setAnimationIdleee(){
-        // Debug.Log("------ ------- ------- ------- Idle Animation work");
-        animator.SetBool("isAttackAnimation", false);
-    } 
 
     protected override void UpdateStatBySkill(int skillNumber, int skillLevel) //skill coding will override this function
     {

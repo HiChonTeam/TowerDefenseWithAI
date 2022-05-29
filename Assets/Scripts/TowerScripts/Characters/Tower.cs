@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Tower : MonoBehaviour
 {
     protected List<GameObject> currentRange = new List<GameObject>();
@@ -117,43 +115,31 @@ public class Tower : MonoBehaviour
                     {
                         if(type == "both") //deal two type damage in the same time
                         {
-                      
                             enemyScript.takeDamage(amount : (int)(baseAtk * modifier * magicDmgBuff), type : "physic", isInstantDeath : isInstantDeath);
                             enemyScript.takeDamage(amount : (int)(baseAtk * modifier * physicDmgBuff), type : "magic", isInstantDeath : isInstantDeath);
                         }
                         else
                         {
-                             
                             enemyScript.takeDamage(amount : (int)(baseAtk * modifier * (type == "physic" ? physicDmgBuff : magicDmgBuff)), type : type, isInstantDeath : isInstantDeath);
                         }
                     }
                     isFirstTarget = false;
                     targets--;
 
-                    // Debug.Log("++++++++++++++++++++++++++++++++ Attack ++++++++++++++++++++++++++++++++++");
-               
-                  setAnimationAttackkk();
-
                     AfterAttack(enemyInRange[i]);
-
-                    
                 }
             }
         }
-
-       
     }
 
     protected virtual void BeforeAttack(GameObject targetEnemy)
     {
         //activate before attack target enemy
-         
     }
 
     protected virtual void AfterAttack(GameObject targetEnemy)
     {
         //activate after attack target enemy
-        
     }
 
     protected virtual void ActionToFirstMetEnemy(GameObject targetEnemy)
@@ -165,10 +151,6 @@ public class Tower : MonoBehaviour
     {
         //activate every second
     }
-
-    protected virtual void setAnimationAttackkk() { }
-
-    protected virtual void setAnimationIdleee() { }
 
     public void StartSimulate(int acceleration)
     {
@@ -859,8 +841,6 @@ public class Tower : MonoBehaviour
         {
             UpdateRange();
         }
-       
-
         enemyInRange = CheckEnemyInRange(); 
         if(enemyInRange.Count > 0)
         {
@@ -868,13 +848,7 @@ public class Tower : MonoBehaviour
             {
                 Attack();
                 timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
-                setAnimationIdleee();
             }
-
-
         }
-
-        
-         
     }
 }

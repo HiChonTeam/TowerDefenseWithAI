@@ -331,16 +331,6 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: camou
-    spriteName: camou
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 9fb5efe250dbd5d4a8421326ee78c891
-    layerID: 27
-    mosaicPosition: {x: 4, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: eye
     spriteName: eye
     isGroup: 0
@@ -418,6 +408,16 @@ ScriptedImporter:
     spriteID: 5f21e6376f2cedc41ac35adb76c508f5
     layerID: 18
     mosaicPosition: {x: 1389, y: 787}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: camou
+    spriteName: camou
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9fb5efe250dbd5d4a8421326ee78c891
+    layerID: 27
+    mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1

@@ -382,6 +382,7 @@ MonoBehaviour:
   isSimulating: 0
   isInterMission: 0
   isWaitingForUser: 0
+  isFinishedReleaseQueue: 0
   round: 1
   timeForNextRound: 5
   edaObject: {fileID: 9083375900820572472, guid: cf2293f3ea604c04aad8a67d4ca68bc6, type: 3}
