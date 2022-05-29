@@ -126,11 +126,19 @@ public class Tower : MonoBehaviour
                     isFirstTarget = false;
                     targets--;
 
+                    // Debug.Log("+++++++++++++ Attack +++++++++++++");
+
+                    setAnimationAttack();
+
                     AfterAttack(enemyInRange[i]);
                 }
             }
         }
     }
+
+    protected virtual void setAnimationAttack() { }
+
+    protected virtual void setAnimationIdle() { }
 
     protected virtual void BeforeAttack(GameObject targetEnemy)
     {
@@ -846,9 +854,15 @@ public class Tower : MonoBehaviour
         {
             if(Time.time >= timeToNextAttack)
             {
+               
                 Attack();
                 timeToNextAttack = Time.time + (1.0f / (baseSpd * spdModifier * spdBuff * spdModifierUntilEndWave * spdModifyBySimulate));
+                setAnimationIdle();
             }
+
+            
         }
+
+        
     }
 }
