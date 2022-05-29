@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    [SerializeField] public GameObject rangeGrid;
+    protected List<GameObject> atkGrid = new List<GameObject>();
+
     protected List<GameObject> currentRange = new List<GameObject>();
     protected List<GameObject> enemyInRange = new List<GameObject>();
     protected float timeToNextAttack = 0.0f;
@@ -826,6 +829,28 @@ public class Tower : MonoBehaviour
             }
         }
     } 
+
+    protected void OnMouseEnter()
+    {
+        if(!StatusController.isGameOver)
+        {
+            List<Vector2> atkRange = UpdateRange();
+            foreach(Vector2 grid in atkRange)
+            {
+                GameObject newAtkGrid = Instantiate(rangeGrid, new Vector3(grid.x, grid.y, 0), Quaternion.identity);
+                atkGrid.Add(newAtkGrid);
+            }
+        }
+    }
+
+    protected void OnMouseExit()
+    {
+        foreach(GameObject grid in atkGrid)
+        {
+            Destroy(grid);
+        }
+        atkGrid.Clear();
+    }
 
     // Start is called before the first frame update
     void Start()
