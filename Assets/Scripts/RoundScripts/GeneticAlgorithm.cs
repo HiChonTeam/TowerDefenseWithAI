@@ -405,7 +405,20 @@ public class GeneticAlgorithm : MonoBehaviour
 
     public (List<List<int>>, float) getBestGene()
     {
-        return (pops[0].getGene(), pops[0].getFitness()); /* return best fitness population's gene */
+        float bestFitness = 0.0f;
+        int i = 0;
+        int bestGene = 0;
+        foreach(Population pop in pops)
+        {
+            float cf = pop.getFitness();
+            if(cf > bestGene)
+            {
+                bestFitness = cf;
+                bestGene = i;
+            }
+            i++;
+        }
+        return (pops[bestGene].getGene(), bestFitness); /* return best fitness population's gene */
     }
 
     public bool getIsFinishedSimulate()

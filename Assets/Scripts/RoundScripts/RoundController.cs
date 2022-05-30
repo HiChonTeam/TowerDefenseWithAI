@@ -212,7 +212,7 @@ public class RoundController : MonoBehaviour
                 {
                     tower.GetComponent<Tower>().NoticeEndOfWave(); /* trigger tower end of wave event */
                 }
-                StatusController.userMoney += 100 + (round * 10);
+                StatusController.userMoney += 100 + (round * 50);
                 isWaitingForUser = true;
                 playButton.GetComponent<Button>().interactable = true;
                 isRoundGoing = false;
