@@ -130,7 +130,7 @@ MonoBehaviour:
   movementSpeed: 2
   reducePhysicDamage: 0.5
   reduceMagicDamage: 0.5
-  barrier: 10000
+  barrier: 3000
   barrierResistance: physic
   cost: 11
   isFly: 1
@@ -140,7 +140,7 @@ MonoBehaviour:
   burnParticle: {fileID: 1118469326235461056, guid: 272da54fb5ac97b44ab7559209362e3e, type: 3}
   popupDamage: {fileID: 125986407695221692, guid: a18776c8ebf5e4a48b8c1ab38c995701, type: 3}
   popupGameOver: {fileID: 125986407695221692, guid: 0acacd0618d071244a806677f256d162, type: 3}
-  popupGameOverButton: {fileID: 4452373201078147241, guid: 4444bec0188cbf54782f40bc570b4b9a, type: 3}
+  CountDown: {fileID: 0}
 --- !u!1001 &7845865451839922785
 PrefabInstance:
   m_ObjectHideFlags: 0
