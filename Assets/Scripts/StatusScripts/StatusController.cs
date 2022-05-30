@@ -9,8 +9,8 @@ public class StatusController : MonoBehaviour
     [SerializeField] private Text MoneyText;
     
 
-    public static int userMoney = 2000;
-    public static int userLife = 15;
+    public static int userMoney = 1000000;
+    public static int userLife = 1;
     public static bool isGameOver = false;
 
     private void Update(){
