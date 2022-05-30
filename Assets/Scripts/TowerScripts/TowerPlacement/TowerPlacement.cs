@@ -28,16 +28,13 @@ public class TowerPlacement : MonoBehaviour
 
     private static int TowerTypeNum = 0; 
     private static bool clickbuytower = false;
-    private static bool buyingPharse = false;
+    public static bool buyingPharse = false;
     private bool directionPharse = false;
     private Vector2 towerPosition;
     public static int buyingCost = 0;
 
     private void Start()
     {
-        // Cursor.visible = false;
-        //Cursor.SetCursor(PictureCursor,Vector2.zero, CursorMode.ForceSoftware);
-        buyingPharse = true;
         foreach(GameObject upgradeButton in buttonList)
         {
             upgradeButton.GetComponent<SkillButtonClick>().setupButton(this);
@@ -413,6 +410,5 @@ public class TowerPlacement : MonoBehaviour
                 Debug.Log(selectingTower);
             }
         }
-        
     }
 }
