@@ -48,6 +48,7 @@ public class DamagePopup : MonoBehaviour
             appearText = damage.ToString();
             textColor = textMesh.color;
         }
+        Debug.Log(type);
         textMesh.SetText(appearText);
     }
 
@@ -58,8 +59,11 @@ public class DamagePopup : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        textColor.a -= 0.0033f;
-        textMesh.color = textColor;
+        if(textMesh != null)
+        {
+            textColor.a -= 0.0033f;
+            textMesh.color = textColor;
+        }
         float m = (i >= 150 ? -1.0f : 2.0f);
         transform.position += new Vector3(0.005f * ((450f - i) / 300f), 0.005f * m, 0);
         i += 1;

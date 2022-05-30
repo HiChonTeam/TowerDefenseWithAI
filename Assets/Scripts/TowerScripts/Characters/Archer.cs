@@ -187,7 +187,7 @@ public class Archer : Tower
         {
             if(skillLevel == 1)
             {
-                type = "all";
+                type = "both";
             }
             else if(skillLevel == 2)
             {
