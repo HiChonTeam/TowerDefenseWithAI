@@ -313,6 +313,11 @@ public class Enemy : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
+    public bool getSimulating()
+    {
+        return simulating;
+    }
+
     private void moveEnemy() 
     {
         transform.position = MoveTowards(transform.position, targetTile.transform.position, movementSpeed * Time.deltaTime);

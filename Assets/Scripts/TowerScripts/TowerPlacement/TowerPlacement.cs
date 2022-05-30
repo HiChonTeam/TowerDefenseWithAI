@@ -23,6 +23,7 @@ public class TowerPlacement : MonoBehaviour
     private bool buyingPharse = false;
     private bool directionPharse = false;
     private Vector2 towerPosition;
+    public static int buyingCost = 0;
 
     private void Start()
     {
@@ -57,6 +58,8 @@ public class TowerPlacement : MonoBehaviour
                 else
                 {
                     Debug.Log("unable to place tower");
+                    buyingPharse = false;
+                    clickbuytower = false;
                 }
             }
         }
@@ -97,7 +100,7 @@ public class TowerPlacement : MonoBehaviour
             mousePosition.x <= towerPosition.x + (towerPosition.y - mousePosition.y)
         )
         {
-            GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
+            GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "down");
             TowerOnMap.towersOnMap.Add(newTower);
         }
@@ -107,7 +110,7 @@ public class TowerPlacement : MonoBehaviour
             mousePosition.y >= towerPosition.y - (towerPosition.x - mousePosition.x)
         )
         {
-            GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
+            GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "left");
             TowerOnMap.towersOnMap.Add(newTower);
         }
@@ -124,6 +127,8 @@ public class TowerPlacement : MonoBehaviour
         else{
             // Debug.Log("bug found, mouse: " + mousePosition + ", tower:" + towerPosition );
         }
+        StatusController.userMoney -= buyingCost;
+        buyingCost = 0;
         buyingPharse = true;
         directionPharse = false;
         selectingTower = null;
@@ -134,14 +139,10 @@ public class TowerPlacement : MonoBehaviour
         tower.GetComponent<Tower>().SetTowerRotate(rotate);
     }
 
-    public static void PurchaseTurrent(int TowerType){
+    public static void PurchaseTurrent(int TowerType, int cost){
         TowerTypeNum = TowerType;
-        
+        buyingCost = cost;
         clickbuytower = true;
-        // if(buyingPharse)
-        // {
-        //     selectingTower = swordsman;
-        // }
     }   
 
     // Update is called once per frame
@@ -151,7 +152,6 @@ public class TowerPlacement : MonoBehaviour
         {
             if(buyingPharse)
             {
-                //buyingPharse = false;
                 GetCurrentHoverTile();
             }
             else if(directionPharse)

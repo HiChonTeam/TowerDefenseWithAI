@@ -1,31 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class RoundController : MonoBehaviour
 {
 
     private EnemiesList enemieslist;
-    public List<GameObject> allMonster;
-
-    public bool isRoundGoing;
-    public bool isSimulating;
-    public bool isInterMission;
-    public bool isWaitingForUser;
-    public bool isFinishedReleaseQueue;
+    [SerializeField] private List<GameObject> allMonster;
+    
+    private bool isRoundGoing;
+    private bool isSimulating;
+    private bool isInterMission;
+    private bool isWaitingForUser;
+    private bool isFinishedReleaseQueue;
+    public static bool AIsimulate = false; 
+    public static bool isStartPressed = false;
 
     public int round = 1;
-
-    public float timeForNextRound = 0f; 
 
     private List<List<int>> monsterReleaseThisRound = new List<List<int>>();
     private float candidateFitness = 0.0f;
     private List<List<int>> candidateMonsterReleaseThisRound = new List<List<int>>();
-    public static List<GameObject> monsterAvailable = new List<GameObject>();
+    private List<GameObject> monsterAvailable = new List<GameObject>();
 
-    // public static List<List<GameObject>> enemiesOnMap = new List<List<GameObject>>();
-    //public static List<List<int>> MonsterOnThisRound = new List<List<int>>();
-    public GameObject edaObject;
+    [SerializeField] private GameObject edaObject;
+    [SerializeField] private TextMeshPro simulatingText;
+    [SerializeField] private GameObject transparentBG;
+    [SerializeField] private Button playButton;
+    private TextMeshPro simulatingTextObject;
+    private GameObject disableBG;
 
     private void Start()
     {
@@ -63,7 +68,7 @@ public class RoundController : MonoBehaviour
             monsterAvailable, 
             MapGenerator.pathsTiles.Count,
             round,
-            this,
+            simulatingTextObject,
             edaObject
         ); 
         StartCoroutine(WaitForEDAResult(eda));
@@ -89,7 +94,7 @@ public class RoundController : MonoBehaviour
             monsterAvailable, 
             MapGenerator.pathsTiles.Count,
             round,
-            this,
+            simulatingTextObject,
             edaObject
         ); 
         StartCoroutine(WaitForGAResult(ga));
@@ -175,10 +180,16 @@ public class RoundController : MonoBehaviour
         {
             // JustRandom(); /* for test random */
             isSimulating = false;
+            simulatingTextObject = Instantiate(simulatingText, new Vector3(0, 0, 0), Quaternion.identity);
+            disableBG = Instantiate(transparentBG, new Vector3(0, 0, 0), Quaternion.identity);
+            AIsimulate = true;
             SimulateSpawnEnemies(); /* EDA -> GA */
         }
         else if(isInterMission)
         {
+            Destroy(simulatingTextObject);
+            Destroy(disableBG);
+            AIsimulate = false;
             isInterMission = false;
             isFinishedReleaseQueue = false;
             // isFinishedReleaseQueue = true; /* for test */
@@ -204,9 +215,8 @@ public class RoundController : MonoBehaviour
                 }
                 StatusController.userMoney += 100 + (round * 10);
                 isWaitingForUser = true;
+                playButton.GetComponent<Button>().interactable = true;
                 isRoundGoing = false;
-                timeForNextRound = Time.time + 5.0f;
-                // timeForNextRound = Time.time; /* for test */
                 round++;
                 Debug.Log("Round is" + round);
                 
@@ -214,16 +224,16 @@ public class RoundController : MonoBehaviour
                 {
                     monsterAvailable.Add(allMonster[monsterAvailable.Count]);
                     enemieslist.CheckSlotIsFull(monsterAvailable);
-                    //enemieslist.CheckSlotIsFull(monsterAvailable);
                 }
             }
         }
         else if(isWaitingForUser && round <= 30)
         {
-            if(Time.time >= timeForNextRound)
+            if(isStartPressed)
             {
                 isWaitingForUser = false;
                 isSimulating = true;
+                isStartPressed = false;
             }
         }
     }
