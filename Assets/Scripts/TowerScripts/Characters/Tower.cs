@@ -11,7 +11,11 @@ public class Tower : MonoBehaviour
     protected List<GameObject> enemyInRange = new List<GameObject>();
     protected float timeToNextAttack = 0.0f;
     protected int[] skillUpgraded = {0, 0, 0}; 
+    protected int[,] SkillCost;
+    protected string[,] SkillDetail;
+    protected string[,] SkillName;
     protected string towerRotate;
+
 
     protected int baseAtk = 0;  //base attack power
     protected float baseSpd = 1.0f; //base attack speed
@@ -771,6 +775,18 @@ public class Tower : MonoBehaviour
             skillUpgraded[skillNumber] += 1;
             UpdateStatBySkill(skillNumber, skillUpgraded[skillNumber]);
         }
+    }
+
+    public int GetSkillCost(int skillNumber, int skillLevel){
+        return SkillCost[skillNumber,skillLevel];
+    }
+
+    public string GetSkillName(int skillNumber, int skillLevel){
+        return SkillName[skillNumber, skillLevel];
+    }
+
+    public string GetSkillDetail(int skillNumber, int skillLevel){
+        return SkillDetail[skillNumber,skillLevel];
     }
 
     public int GetSkillUpgraded(int skillNumber)

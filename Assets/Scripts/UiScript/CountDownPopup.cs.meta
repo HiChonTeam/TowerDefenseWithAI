@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 378855289f8592c45bd8f062256b39ae
+guid: 3d0b5d8a91e4b5441ab5cfa79c71eb0b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - Keck: {fileID: 125986407695221692, guid: 0acacd0618d071244a806677f256d162, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

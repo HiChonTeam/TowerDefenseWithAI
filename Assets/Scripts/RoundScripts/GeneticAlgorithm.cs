@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GeneticAlgorithm : MonoBehaviour
 {
@@ -21,18 +22,20 @@ public class GeneticAlgorithm : MonoBehaviour
     private bool isFinishedSimulate = false;
 
     private GameObject populationObject;
+    private TextMeshPro loadingText;
 
     private List<Population> pops = new List<Population>(); /* current top fitness pops */
     private List<Population> trialPops = new List<Population>(); /* trial pops where considering to take a place of pops */
     private List<GameObject> allPops = new List<GameObject>(); /* all pop object used for dump data */
     
-    public void init(int maxCost, List<GameObject> availableMonster, int numberOfPaths, int round, RoundController roundController, GameObject populationObject)
+    public void init(int maxCost, List<GameObject> availableMonster, int numberOfPaths, int round, TextMeshPro loadingText, GameObject populationObject)
     {
         this.maxCost = maxCost;
         this.numberOfPaths = numberOfPaths;
         this.availableMonster = availableMonster;
         this.round = round;
         this.populationObject = populationObject;
+        this.loadingText = loadingText;
 
         StartCoroutine(LifeCycle());
     }    
@@ -197,6 +200,7 @@ public class GeneticAlgorithm : MonoBehaviour
         }
         
         Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
+        loadingText.SetText("Simulating... " + ((generation * 10) + 50) + "%");
         
         trialPops.Clear();
         selectioned = true;

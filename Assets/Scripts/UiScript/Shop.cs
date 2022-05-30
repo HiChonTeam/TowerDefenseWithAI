@@ -1,71 +1,106 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : TowerPlacement
 {
-    private int Cost = 0;
-    // TowerPlacement towerplacement;
-    // protected override void PurchaseTurrent(string TowerType){
-    // }   
+    private List<int> Cost = new List<int>(){500, 1200, 700, 500, 1500};
+    public static bool canBuy = true;
+    [SerializeField] private List<Button> buttons;
+    private bool simulating = false;
 
     public bool CheckMoneyEnough(int cost){
         if(StatusController.userMoney >= cost ){
-            StatusController.userMoney -= cost;
-            // TowerPlacement.PurchaseTurrent(1);
             return true;
         }
         else{
-            Debug.Log("Not Enough Money");
             return false;
         }
     }
 
     public void OnclickButton1(){
-        Cost = 500;
-        //Debug.Log("Shoppppppppppppppppppppppppppppppppppppppppppppppp");
-        if(CheckMoneyEnough(Cost) == true){
-            PurchaseTurrent(1);
+        if(canBuy)
+        {
+            if(CheckMoneyEnough(Cost[0]) == true){
+                PurchaseTurrent(1, Cost[0]);
+            }
+            else{
+                Debug.Log("Not Enough Money");
+            }
         }
-        else{
-            Debug.Log("Not Enough Money");
-        }
+        
     }
     public void OnclickButton2(){
-        Cost = 1200;
-        if(CheckMoneyEnough(Cost) == true){
-            PurchaseTurrent(2);
+        if(canBuy)
+        {
+            if(CheckMoneyEnough(Cost[1]) == true){
+                PurchaseTurrent(2, Cost[1]);
+            }
+            else{
+                Debug.Log("Not Enough Money");
+            }
         }
-        else{
-            Debug.Log("Not Enough Money");
-        }
+        
     }
     public void OnclickButton3(){
-        Cost = 700;
-        if(CheckMoneyEnough(Cost) == true){
-            PurchaseTurrent(3);
-        }
-        else{
-            Debug.Log("Not Enough Money");
+        if(canBuy)
+        {
+            if(CheckMoneyEnough(Cost[2]) == true){
+                PurchaseTurrent(3, Cost[2]);
+            }
+            else{
+                Debug.Log("Not Enough Money");
+            } 
         }
     }
     public void OnclickButton4(){
-        Cost = 500;
-        if(CheckMoneyEnough(Cost) == true){
+        if(canBuy)
+        {
+            if(CheckMoneyEnough(Cost[3]) == true){
 
-            PurchaseTurrent(4);
+                PurchaseTurrent(4, Cost[3]);
+            }
+            else{
+                Debug.Log("Not Enough Money");
+            }
         }
-        else{
-            Debug.Log("Not Enough Money");
-        }
+        
     }
     public void OnclickButton5(){
-        Cost = 1500;
-        if(CheckMoneyEnough(Cost) == true){
-            PurchaseTurrent(5);
+        if(canBuy)
+        {
+            if(CheckMoneyEnough(Cost[4]) == true){
+                PurchaseTurrent(5, Cost[4]);
+            }
+            else{
+                Debug.Log("Not Enough Money");
+            }
         }
-        else{
-            Debug.Log("Not Enough Money");
+    }
+
+    private void Update()
+    {
+        if(!RoundController.AIsimulate)
+        {
+            for(int i = 0; i < buttons.Count; i++)  
+            {
+                if(CheckMoneyEnough(Cost[i]))
+                {
+                    buttons[i].GetComponent<Button>().interactable = true;
+                }
+                else
+                {
+                    buttons[i].GetComponent<Button>().interactable = false;
+                }
+            }
+        }
+        else
+        {
+            foreach(Button button in buttons)
+            {
+                button.GetComponent<Button>().interactable = false;
+            }
         }
     }
 }

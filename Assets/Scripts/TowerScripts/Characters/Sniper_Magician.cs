@@ -10,6 +10,51 @@ public class Sniper_Magician : Tower
     // Start is called before the first frame update
     private void Start()
     {
+        SkillCost = new int[,] {{800,1200,2000,6000},{1000,1500,3000,6000},{1200,1200,2400,4500}};
+        SkillName = new string[,] {
+            {
+            "Stopping magic",
+            "Larger maniber",
+            "Mana detector scope",
+            "Killing machine",
+            }
+            ,
+            {
+            "Piercing shot",
+            "Anti-materiel magic",
+            "Giant killer",
+            "Eraser",
+            }
+            ,
+            {
+            "2-cast mode",
+            "3-cast mode",
+            "Full auto magic",
+            "Destroyer",
+            }
+        };
+        SkillDetail = new string[,] {
+            {
+            "Sniper’s attack increase damage dealt with non-armoured target by 100%.",
+            "Sniper’s attack power + 100%.",
+            "Sniper’s now can target camouflaged enemy. Also, Sniper’s attack speed + 50%.",
+            "Each target Sniper attacked, Sniper’s attack power will increase by 10% and attack speed will increase by 2%. Also, now Sniper can target all types of enemy. These effects will reset every time wave end."
+            }
+            ,
+            {
+            "Sniper’s attack can pierce up to 5 targets.",
+            "Sniper’s attack can pierce all targets in range. Additional, increase damage dealt to armoured target by 100%.",
+            "The first target each Sniper’s shot will receive more damage by 1000%.",
+            "Sniper’s shot able to target all types of enemy and increase attack power by 150%. Also, significantly increase Sniper’s attack range."
+            }
+            ,
+            {
+            "Sniper’s attack deal double hit.",
+            "Sniper’s attack deal triple hit instead of double.",
+            "Sniper’s now deal only single hit instead of triple but increase Sniper’s attack speed by 500%.",
+            "Sniper’s shot will no more pierce but increase Sniper’s attack power by X%. X equal to 200 * numbers of enemies in range. Upgrade Piercing shot and Anti-materiel magic will increase Sniper’s attack range instead."
+            }
+        };
         baseAtk = 2500; 
         baseSpd = 0.5f;
         range = new int[] {5};

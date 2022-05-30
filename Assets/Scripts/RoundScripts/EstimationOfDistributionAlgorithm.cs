@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EstimationOfDistributionAlgorithm : MonoBehaviour
 {
@@ -24,14 +25,16 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
     private List<GameObject> allPops = new List<GameObject>(); /* all pop object used for dump data */
 
     public GameObject populationObject;
+    private TextMeshPro loadingText;
 
-    public void init(int maxCost, List<GameObject> availableMonster, int numberOfPaths, int round, RoundController roundController, GameObject populationObject)
+    public void init(int maxCost, List<GameObject> availableMonster, int numberOfPaths, int round, TextMeshPro loadingText, GameObject populationObject)
     {
         this.maxCost = maxCost;
         this.numberOfPaths = numberOfPaths;
         this.availableMonster = availableMonster;
         this.round = round;
         this.populationObject = populationObject;
+        this.loadingText = loadingText;
 
         StartCoroutine(LifeCycle());
     }
@@ -359,6 +362,7 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
         }
         
         Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
+        loadingText.SetText("Simulating... " + (generation * 10) + "%");
         
         trialPops.Clear();
         selectioned = true;

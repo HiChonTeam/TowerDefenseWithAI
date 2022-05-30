@@ -10,6 +10,51 @@ public class Archer : Tower
     // Start is called before the first frame update
     private void Start()
     {
+        SkillCost = new int[,] {{700,1200,1800,5000},{300,1000,1000,1000},{500,1500,2000,4000}};
+        SkillName = new string[,] {
+            {
+            "Longer bow",
+            "Even longer bow",
+            "Concentration",
+            "White Death",
+            }
+            ,
+            {
+            "Hunter’s eye",
+            "Two types arrow",
+            "Flare magic",
+            "Frost barrage",
+            }
+            ,
+            {
+            "Magic arrow",
+            "Time fuse arrow",
+            "Rapid fire",
+            "Aerial solver",
+            }
+        };
+        SkillDetail = new string[,] {
+            {
+            "Slightly increase Archer’s attack range and increase Archer’s attack power by 100%.",
+            "Significantly increase Archer’s attack range and increase Archer’s attack power by 100%.",
+            "Farther target is more damage arrow does. Increase damage dealt to an enemy by X%.X equal to the distance between Archer and enemy * 50.",
+            "Archer priority farthest target in range first. Each time Archer attack enemy, increase attack power by X% until the end of the wave. X equal to to the distance between Archer and enemy * 2.Also, each enemy eliminated by Archer will give additional 50$."
+            }
+            ,
+            {
+            "Archer’s now can deal damage to camouflage enemy.",
+            "When Archer attacks an aerial target, deal damage to all aerial enemies in range.When Archer attacks a ground target, that attack can deal damage to armoured enemy.",
+            "Remove all enemies camouflage in range.",
+            "Call a dragon for barrage frost stones on the entire map, deal damage to all enemies in entire map 25% of their remaining HP every second and increase damage all enemies receive by 10%. This damage effect can dealt to all enemy types."
+            }
+            ,
+            {
+            "Archer’s attack deal additional 100% of attack power as magic damage.",
+            "Increase Archer’s attack power by 500%, but can’t target ground enemies.",
+            "Increase Archer’s attack speed by 100% ",
+            "Archer’s attack now can dealt damage to all types of enemy except ground enemy. Also, increase Archer’s attack power and attack speed by 50%."
+            }
+        };
         baseAtk = 800; 
         baseSpd = 0.8f;
         range = new int[] {4, 4, 4};

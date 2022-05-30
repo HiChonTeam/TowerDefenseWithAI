@@ -50,3 +50,6 @@ TagManager:
   - name: Damage
     uniqueID: 2542031485
     locked: 0
+  - name: Text
+    uniqueID: 2828726239
+    locked: 0

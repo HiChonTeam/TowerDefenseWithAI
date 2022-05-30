@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameOverPopup : MonoBehaviour
 {
     private int i = 0;
-
-    public void AcceptGameOver(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
 
     // Update is called once per frame
     private void Update()

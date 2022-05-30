@@ -21,6 +21,15 @@ public class EnemiesList : MonoBehaviour
     public Sprite EliteEnemy;
     public Sprite CamouBasic;
     public Sprite CamouElite;
+    public Sprite ArmouBasic;
+    public Sprite ArmouElite;
+    public Sprite Minirobot;
+    public Sprite EnhanBasic;
+    public Sprite EnhenElite;
+    public Sprite CamouMinirobot;
+    public Sprite ArmouMinirobot;
+    public Sprite EnhanMinirobot;
+
     public Sprite ResetImage;
     // [SerializeField] public Sprite CamouBasicEnemy;
     // [SerializeField] public Sprite EliteBasicEnemy;
@@ -106,6 +115,65 @@ public class EnemiesList : MonoBehaviour
                         isFull[i] = true;
                         break;
                     }
+                    else if(enemyComp.getName() == "Armoured Basic"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = ArmouBasic;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Armoured Elite"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = ArmouElite;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Mini robot"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = Minirobot;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Enhanced Basic"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = EnhanBasic;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Enhanced Elite"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = EnhenElite;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Camou Mini robot"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = CamouMinirobot;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Armoured Mini robot"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = ArmouMinirobot;
+                        isFull[i] = true;
+                        break;
+                    }
+                    else if(enemyComp.getName() == "Enhanced Mini robot"){
+                        //nameslot[i] = "Elite";
+                        //Debug.Log("Name is " + nameslot[i]);
+                        slots[i].sprite = EnhanMinirobot;
+                        isFull[i] = true;
+                        break;
+                    }
+
+                    
+                    
                 }
                 else{
                     continue;
