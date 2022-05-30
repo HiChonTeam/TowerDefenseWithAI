@@ -99,12 +99,10 @@ public class EstimationOfDistributionAlgorithm : MonoBehaviour
                 activeGeneNumber++;
             }
         }
-
         GameObject popObj = Instantiate(populationObject, new Vector3(0, 0, 0), transform.rotation);
         popObj.AddComponent<Population>();
         Population p = popObj.GetComponent<Population>(); /* first generation */
         p.initialize(gene, availableMonster, numberOfPaths, acceleration, activeGeneNumber);
-
         return (p, popObj); /* return population */
     }
 

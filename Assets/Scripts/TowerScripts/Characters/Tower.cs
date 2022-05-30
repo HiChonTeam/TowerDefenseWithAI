@@ -773,6 +773,7 @@ public class Tower : MonoBehaviour
         if(skillUpgraded[skillNumber] < 4)
         {
             skillUpgraded[skillNumber] += 1;
+            Debug.Log("level : " + skillUpgraded[skillNumber]);
             UpdateStatBySkill(skillNumber, skillUpgraded[skillNumber]);
         }
     }
@@ -792,6 +793,11 @@ public class Tower : MonoBehaviour
     public int GetSkillUpgraded(int skillNumber)
     {
         return skillUpgraded[skillNumber];
+    }
+
+    public int[] GetAllSkillUpgraded()
+    {
+        return skillUpgraded;
     }
 
     protected virtual void UpdateStatBySkill(int skillNumber, int skillLevel) //skill coding will override this function
