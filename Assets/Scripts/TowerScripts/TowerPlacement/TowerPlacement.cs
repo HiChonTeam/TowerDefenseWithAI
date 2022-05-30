@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
+    public Texture2D swordsmanCursor;
+    public Texture2D sniperMagicianCursor;
+    public Texture2D sorcererCursor;
+    public Texture2D archerCursor;
+    public Texture2D witchCursor;
+    public Vector2 hotSpot = new Vector2(120 / 2f, 200);
     [SerializeField] private Camera cam;
 
     [SerializeField] private LayerMask placableMask;
@@ -29,6 +35,8 @@ public class TowerPlacement : MonoBehaviour
 
     private void Start()
     {
+        // Cursor.visible = false;
+        //Cursor.SetCursor(PictureCursor,Vector2.zero, CursorMode.ForceSoftware);
         buyingPharse = true;
         foreach(GameObject upgradeButton in buttonList)
         {
@@ -63,6 +71,7 @@ public class TowerPlacement : MonoBehaviour
                 }
                 else
                 {
+                    Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                     Debug.Log("unable to place tower");
                     buyingPharse = false;
                     clickbuytower = false;
@@ -253,12 +262,14 @@ public class TowerPlacement : MonoBehaviour
 
     public void GetCurrentDirection()
     {
+
         Vector2 mousePosition = GetMousePosition();
 
         RaycastHit2D legalHit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, placableMask, -100, 100);
 
         if(legalHit && legalHit.transform.position.Equals(towerPosition))
         {
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             // Debug.Log("cancel place");
         }
         else if(
@@ -270,6 +281,7 @@ public class TowerPlacement : MonoBehaviour
             GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
             SetTowerRotate(newTower, "up");
             TowerOnMap.towersOnMap.Add(newTower);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
         else if(
             mousePosition.y <= towerPosition.y &&
@@ -280,6 +292,7 @@ public class TowerPlacement : MonoBehaviour
             GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "down");
             TowerOnMap.towersOnMap.Add(newTower);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
         else if(
             mousePosition.x <= towerPosition.x &&
@@ -290,6 +303,7 @@ public class TowerPlacement : MonoBehaviour
             GameObject newTower = Instantiate(selectingTower, towerPosition, new Quaternion(0, 180 , 0, 1));
             SetTowerRotate(newTower, "left");
             TowerOnMap.towersOnMap.Add(newTower);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
         else if(
             mousePosition.x >= towerPosition.x &&
@@ -300,6 +314,7 @@ public class TowerPlacement : MonoBehaviour
             GameObject newTower = Instantiate(selectingTower, towerPosition, Quaternion.identity);
             SetTowerRotate(newTower, "right");
             TowerOnMap.towersOnMap.Add(newTower);
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
         else{
             // Debug.Log("bug found, mouse: " + mousePosition + ", tower:" + towerPosition );
@@ -328,8 +343,10 @@ public class TowerPlacement : MonoBehaviour
     {
         if(Input.GetButtonDown("Fire1"))
         {
+            
             if(buyingPharse)
             {
+                
                 GetCurrentHoverTile();
             }
             else if(directionPharse)
@@ -347,6 +364,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = swordsman;
+                Cursor.SetCursor(swordsmanCursor,hotSpot , CursorMode.ForceSoftware);
                 TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
@@ -357,6 +375,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = sniperMagician;
+                Cursor.SetCursor(sniperMagicianCursor,hotSpot , CursorMode.ForceSoftware);
                 TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
@@ -367,6 +386,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = sorcerer;
+                Cursor.SetCursor(sorcererCursor,hotSpot , CursorMode.ForceSoftware);
                 TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
@@ -377,6 +397,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = archer;
+                Cursor.SetCursor(archerCursor,hotSpot , CursorMode.ForceSoftware);
                 TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }
@@ -387,6 +408,7 @@ public class TowerPlacement : MonoBehaviour
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = witch;
+                Cursor.SetCursor(witchCursor,hotSpot , CursorMode.ForceSoftware);
                 TowerTypeNum = 0;
                 Debug.Log(selectingTower);
             }

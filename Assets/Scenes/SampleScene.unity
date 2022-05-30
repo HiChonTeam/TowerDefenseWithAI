@@ -2171,6 +2171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e119a7fc6759c33499421707396030b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 0}
+  sniperMagicianCursor: {fileID: 0}
+  sorcererCursor: {fileID: 0}
+  archerCursor: {fileID: 0}
+  witchCursor: {fileID: 0}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2
@@ -2351,6 +2356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e119a7fc6759c33499421707396030b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 0}
+  sniperMagicianCursor: {fileID: 0}
+  sorcererCursor: {fileID: 0}
+  archerCursor: {fileID: 0}
+  witchCursor: {fileID: 0}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2
@@ -2477,6 +2487,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e119a7fc6759c33499421707396030b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 0}
+  sniperMagicianCursor: {fileID: 0}
+  sorcererCursor: {fileID: 0}
+  archerCursor: {fileID: 0}
+  witchCursor: {fileID: 0}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2
@@ -2674,6 +2689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e119a7fc6759c33499421707396030b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 0}
+  sniperMagicianCursor: {fileID: 0}
+  sorcererCursor: {fileID: 0}
+  archerCursor: {fileID: 0}
+  witchCursor: {fileID: 0}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2
@@ -2852,6 +2872,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e119a7fc6759c33499421707396030b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 0}
+  sniperMagicianCursor: {fileID: 0}
+  sorcererCursor: {fileID: 0}
+  archerCursor: {fileID: 0}
+  witchCursor: {fileID: 0}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2
@@ -4447,6 +4472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4804de63bdb0bc34cb608d03814a0c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swordsmanCursor: {fileID: 2800000, guid: 20af106402fd2d343aaff7467e6a871c, type: 3}
+  sniperMagicianCursor: {fileID: 2800000, guid: 9e7b4a117ed88214c840dff8d0c3e046, type: 3}
+  sorcererCursor: {fileID: 2800000, guid: b554f8fbbe1291447b413c6e56fcd5ce, type: 3}
+  archerCursor: {fileID: 2800000, guid: fac38cf1b2ec9194386d4873509b017f, type: 3}
+  witchCursor: {fileID: 2800000, guid: 57b75fb0ac0cf41428d86bc10ace61a5, type: 3}
   cam: {fileID: 519420031}
   placableMask:
     serializedVersion: 2

@@ -3,7 +3,14 @@ guid: 4804de63bdb0bc34cb608d03814a0c48
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - PictureCursor: {fileID: 2800000, guid: 20af106402fd2d343aaff7467e6a871c, type: 3}
+  - cam: {instanceID: 0}
+  - swordsman: {instanceID: 0}
+  - sniperMagician: {instanceID: 0}
+  - sorcerer: {instanceID: 0}
+  - archer: {instanceID: 0}
+  - witch: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

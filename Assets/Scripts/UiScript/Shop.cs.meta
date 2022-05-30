@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - PictureCursor: {fileID: 2800000, guid: 20af106402fd2d343aaff7467e6a871c, type: 3}
   - cam: {instanceID: 0}
   - swordsman: {instanceID: 0}
   - sniperMagician: {instanceID: 0}
