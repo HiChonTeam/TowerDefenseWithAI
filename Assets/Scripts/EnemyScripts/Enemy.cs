@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Enemy : MonoBehaviour
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ParticleSystem burnParticle;
     [SerializeField] private TextMeshPro popupDamage;
     [SerializeField] private TextMeshPro popupGameOver;
-    [SerializeField] private GameObject popupGameOverButton;
+    [SerializeField] private TextMeshPro CountDown;
 
     private GameObject targetTile;
 
@@ -304,10 +305,8 @@ public class Enemy : MonoBehaviour
             if(StatusController.userLife <= 0)
             {
                 StatusController.isGameOver = true;
-                //popupGameOverButton.transform.SetParent(newCanvas.transform, false);
-                Instantiate(popupGameOver, new Vector3(0, 0, 0), Quaternion.identity);
-                Instantiate(popupGameOverButton, new Vector3(0, 0, 0), Quaternion.identity);
-                //popupGameOverButton.transform.SetParent(null);
+                Instantiate(popupGameOver, new Vector3(-2, 0, 0), Quaternion.identity);
+                Instantiate(CountDown, new Vector3(-2 ,-2, 0), Quaternion.identity);
 
             }
         }
