@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sorcerer : Tower
 {
+    private Animator animator;
+
     private float pointBlankDmg = 0.0f;
     // Start is called before the first frame update
     private void Start()
@@ -13,7 +15,18 @@ public class Sorcerer : Tower
         range = new int[] {3, 2, 2};
         canAtkGround = true;
         type = "magic";
+
+        animator = GetComponent<Animator>();
     }
+
+    protected override void setAnimationAttack(){
+        
+        animator.SetBool("isAttackAnimation", true);
+    }
+
+    protected override void setAnimationIdle(){
+        animator.SetBool("isAttackAnimation", false);
+    } 
 
     protected override void BeforeAttack(GameObject targetEnemy)
     {

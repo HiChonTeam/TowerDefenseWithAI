@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6507811731351922634}
   - component: {fileID: 6621817443643914271}
   - component: {fileID: 6217834589743936809}
+  - component: {fileID: 4693276165676362837}
   m_Layer: 8
   m_Name: Witch
   m_TagString: Untagged
@@ -126,6 +127,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &4693276165676362837
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014232412896027425}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03eed60ff0233b6449a50980458b1256, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &9699902295857399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -151,23 +172,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.21356258
+      value: 0.24941973
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.21356258
+      value: 0.24941973
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.17085007
+      value: 0.19953579
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.246
+      value: 0.25694
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.966
+      value: -1.1846
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 580f5e57cfb88a241884abe076deb3c5, type: 3}
       propertyPath: m_LocalPosition.z

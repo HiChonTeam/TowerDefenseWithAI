@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sniper_Magician : Tower
 {
+    private Animator animator;
+
     float destroyerBuff = 0.0f;
     // Start is called before the first frame update
     private void Start()
@@ -15,7 +17,19 @@ public class Sniper_Magician : Tower
         canAtkGround = true;
         canAtkArmoured = true;
         type = "magic";
+
+        animator = GetComponent<Animator>();
     }
+
+       protected override void setAnimationAttack(){
+        
+        animator.SetBool("isAttackAnimation", true);
+    }
+
+    protected override void setAnimationIdle(){
+        animator.SetBool("isAttackAnimation", false);
+    } 
+
 
     protected override void BeforeAttack(GameObject targetEnemy)
     {

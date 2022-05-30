@@ -111,7 +111,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -651, y: 142}
+    uvTransform: {x: -586, y: 142}
   - name: hat
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -132,7 +132,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -424, y: -817}
+    uvTransform: {x: -351, y: -817}
   - name: bread
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -153,7 +153,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -470, y: -166}
+    uvTransform: {x: -413, y: -166}
   - name: head
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -174,7 +174,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -463, y: -112}
+    uvTransform: {x: -400, y: -112}
   - name: hair
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -195,7 +195,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -895, y: 80}
+    uvTransform: {x: -813, y: 80}
   - name: skirt
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -216,7 +216,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -877, y: -147}
+    uvTransform: {x: -748, y: -147}
   - name: body
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -237,7 +237,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -867, y: 32}
+    uvTransform: {x: -795, y: 32}
   - name: cata
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -258,7 +258,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -231, y: -118}
+    uvTransform: {x: -750, y: -137}
   - name: lamp
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -544, y: 77}
+    uvTransform: {x: -133, y: 77}
   - name: arm_right
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -300,7 +300,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -603, y: -311}
+    uvTransform: {x: -266, y: -311}
   - name: arm_left
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -321,7 +321,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -489, y: 220}
+    uvTransform: {x: -685, y: 220}
   - name: leg
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -342,7 +342,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -479, y: 640}
+    uvTransform: {x: -338, y: 640}
   characterData:
     bones: []
     parts: []

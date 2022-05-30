@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Witch : Tower
 {
+    private Animator animator;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -16,7 +18,18 @@ public class Witch : Tower
         canAtkFly = true;
         target = -1;
         type = "magic";
+
+        animator = GetComponent<Animator>();
     }
+
+    protected override void setAnimationAttack(){
+        
+        animator.SetBool("isAttackAnimation", true);
+    }
+
+    protected override void setAnimationIdle(){
+        animator.SetBool("isAttackAnimation", false);
+    } 
 
     public void BuffAlly(GameObject targetTower)
     {

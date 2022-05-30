@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4360610711750272695}
   - component: {fileID: 4332653924577955314}
   - component: {fileID: 7039659142616821998}
+  - component: {fileID: -9158062252841260758}
   m_Layer: 8
   m_Name: Archer
   m_TagString: Untagged
@@ -126,6 +127,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &-9158062252841260758
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8386552623437412278}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19c70efd77fcdaf46b13284f15fea2e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &3971501499387782754
 PrefabInstance:
   m_ObjectHideFlags: 0

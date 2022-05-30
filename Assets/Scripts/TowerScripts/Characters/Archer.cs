@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Archer : Tower
 {
+
+    private Animator animator;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -12,7 +15,18 @@ public class Archer : Tower
         range = new int[] {4, 4, 4};
         canAtkGround = true;
         canAtkFly = true;
+
+        animator = GetComponent<Animator>();
     }
+
+     protected override void setAnimationAttack(){
+        
+        animator.SetBool("isAttackAnimation", true);
+    }
+
+    protected override void setAnimationIdle(){
+        animator.SetBool("isAttackAnimation", false);
+    } 
 
     protected override void BeforeAttack(GameObject targetEnemy)
     {

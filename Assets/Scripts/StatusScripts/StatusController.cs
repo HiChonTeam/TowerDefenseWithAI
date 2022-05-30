@@ -10,7 +10,7 @@ public class StatusController : MonoBehaviour
     
 
     public static int userMoney = 2000;
-    public static int userLife = 1;
+    public static int userLife = 15;
     public static bool isGameOver = false;
 
     private void Update(){
