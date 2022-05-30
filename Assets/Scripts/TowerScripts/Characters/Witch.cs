@@ -7,6 +7,51 @@ public class Witch : Tower
     // Start is called before the first frame update
     private void Start()
     {
+        SkillCost = new int[,] {{1000,1200,2000,7500},{1200,1600,4444,9999},{800,2500,2000,5000}};
+        SkillName = new string[,] {
+            {
+            "Support magic",
+            "Focus on support",
+            "Talent awakening",
+            "Limit break",
+            }
+            ,
+            {
+            "Longer range magic",
+            "Far sight",
+            "Holy dragon aura",
+            "Four Heavenly Kings",
+            }
+            ,
+            {
+            "Magic teaching",
+            "Knowledge teaching",
+            "Guild assembly",
+            "Alchemist guild",
+            }
+        };
+        SkillDetail = new string[,] {
+            {
+            "When not have any enemy in range, all allies within range increase attack power and attack speed by 20%.",
+            "Support magic skill now effect all time and double its effect, but Witch will not attack enemy anymore.",
+            "Reduce amount of money required to upgrade skill for all other allies within range by 30%.",
+            "Increase attack power and attack speed of all allies in range by 100%. Also, increase their attack range in front directions by 1 grid. (included Witch)"
+            }
+            ,
+            {
+            "Increase Witch’s attack range.",
+            "Increase Witch’s attack range even more.",
+            "All allies in range increase attack power by 100%.",
+            "Only upgrade this skill when Archer with Frost barrage upgraded and Sorcerer with Dragon’s breath upgraded are within battlefield.When this skill upgraded, with the power of three dragons combine into power of Chaturathep, the Witch can attack all enemies on the entire map and increase Witch’s attack speed by 1000%. Support magic and Focus on support upgraded will no longer effective but will increase Witch’s attack power by 40% and 60% respectively."
+            }
+            ,
+            {
+            "All allies in range increase magic damage dealt by 40%.",
+            "All allies in range can deal damage to all enemy types.",
+            "At the end of the wave, gain additional income by X$, X equal to the number of witches in battlefield before upgrade this skill * 50 (included self).",
+            "At the end of the wave, gain additional income by 500$."
+            }
+        };
         baseAtk = 200;
         baseSpd = 1.0f;
         range = new int[] {1, 1, 1};

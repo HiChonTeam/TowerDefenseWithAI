@@ -8,6 +8,51 @@ public class Sorcerer : Tower
     // Start is called before the first frame update
     private void Start()
     {
+        SkillCost = new int[,] {{400,800,2000,3500},{300,500,500,4500},{400,800,1600,3200}};
+        SkillName = new string[,] {
+            {
+            "Shotmagic",
+            "Powerful magic",
+            "Magic missile",
+            "Dragon’s breath",
+            }
+            ,
+            {
+            "Stone bullet",
+            "Mana eye",
+            "Slug magic",
+            "Meteorite",
+            }
+            ,
+            {
+            "Quick spell",
+            "Without casting",
+            "Endless mana",
+            "Genius Sorcerer",
+            }
+        };
+        SkillDetail = new string[,] {
+            {
+            "Sorcerer deal up to 150% more damage to enemy within point-bank range (1.5px).",
+            "Sorcerer’s attack power + 100%",
+            "Reduce Sorcerer’s attack range, but Sorcerer can deal damage to an enemy 5 times at once.",
+            "Reduce Sorcerer’s attack range, but increase Sorcerer attack power by 500%. Also, when enemies arrived to Sorcerer’s range first time, they will receive damage equal to 50% of their current HP."
+            }
+            ,
+            {
+            "Cast magic as earth element. Sorcerer’s now can deal damage to armoured enemy.",
+            "Sorcerer’s now can deal damage to camouflage enemy.",
+            "Change Sorcerer’s attack range. Shotmagic upgrade has longer effective range (3px). ",
+            "Increase Sorcerer’s attack range. Sorcerer’s magic now deals damage to all enemies and increase attack power by 400%, but decrease attack speed by 50%. The attack will cause burns on enemies, burning enemies will damage its HP by 100 constant damage every second and remove its camouflage and armoured."
+            }
+            ,
+            {
+            "Sorcerer’s attack speed +50%.",
+            "Sorcerer’s attack speed + 100%",
+            "Every time Sorcerer cast magic, Sorcerer’s attack speed will increase by 10%. This effect will reset every time wave end.",
+            "Sorcerer’s magic will deal X true damage to all enemies in range instead of normal attack. Also, increase Sorcerer’s attack speed by 30%. X equal to 100 * current attack speed. Upgrade Shotmagic and Powerful magic will increase Sorcerer’s attack speed by 50% and 100% respectively."
+            }
+        };
         baseAtk = 1000; 
         baseSpd = 1.0f;
         range = new int[] {3, 2, 2};
