@@ -196,14 +196,49 @@ public class GeneticAlgorithm : MonoBehaviour
         for(int i = 0; i < trialPops.Count; i++)
         {
             yield return new WaitUntil(() => trialPops[i].isFinishedEvaluate() == true);
-            InsertionSort(trialPops[i]);
+            // InsertionSort(trialPops[i]);
         }
+        float bestFitness = TournamentSelection();
         
-        Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + pops[0].getFitness());
+        Debug.Log("Round: " + round + " Generation: " + generation + " Fitness: " + bestFitness);
         loadingText.SetText("Simulating... " + ((generation * 10) + 50) + "%");
         
         trialPops.Clear();
         selectioned = true;
+    }
+
+    private float TournamentSelection()
+    {
+        List<Population> popsInGen = pops;
+        List<Population> newPops = new List<Population>();
+        float sumFitness = 0.0f;
+        float bestFitness = 0.0f;
+        foreach(Population trialPop in trialPops)
+        {
+            popsInGen.Add(trialPop);
+        }
+        for(int i = 0; i < populationSize; i++)
+        {
+            sumFitness = 0.0f;
+            foreach(Population pop in popsInGen)
+            {
+                sumFitness += pop.getFitness();
+            }
+            float rand = Random.Range(0.0f, sumFitness);
+            for(int j = 0; j < popsInGen.Count; j++)
+            {
+                rand -= popsInGen[j].getFitness();
+                if(rand <= 0)
+                {
+                    newPops.Add(popsInGen[j]);
+                    bestFitness = popsInGen[j].getFitness() > bestFitness ? popsInGen[j].getFitness() : bestFitness;
+                    popsInGen.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        pops = newPops; /* replace with new gene from tournament */
+        return bestFitness;
     }
 
     private (List<List<int>>, List<List<int>>, List<int>) crossover(int parentNum1, int parentNum2, int ChromosomeNum)

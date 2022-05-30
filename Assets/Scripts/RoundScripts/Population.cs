@@ -98,7 +98,7 @@ public class Population : MonoBehaviour
 
     public bool isFinishedEvaluate()
     {
-        return activeGeneNumber == numberOfFitnessCount;
+        return activeGeneNumber <= numberOfFitnessCount;
     }
 
     public List<List<int>> getGene()

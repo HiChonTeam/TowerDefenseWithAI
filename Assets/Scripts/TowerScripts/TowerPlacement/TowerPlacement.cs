@@ -10,6 +10,8 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private LayerMask nonplacableMask;
     [SerializeField] private LayerMask towerMask;
 
+    [SerializeField] private List<GameObject> buttonList; 
+
     private GameObject selectingTower = null;
 
     [SerializeField] private GameObject swordsman;
@@ -20,7 +22,7 @@ public class TowerPlacement : MonoBehaviour
 
     private static int TowerTypeNum = 0; 
     private static bool clickbuytower = false;
-    private bool buyingPharse = false;
+    private static bool buyingPharse = false;
     private bool directionPharse = false;
     private Vector2 towerPosition;
     public static int buyingCost = 0;
@@ -28,6 +30,10 @@ public class TowerPlacement : MonoBehaviour
     private void Start()
     {
         buyingPharse = true;
+        foreach(GameObject upgradeButton in buttonList)
+        {
+            upgradeButton.GetComponent<SkillButtonClick>().setupButton(this);
+        }
     }
 
     public Vector2 GetMousePosition()
@@ -67,11 +73,182 @@ public class TowerPlacement : MonoBehaviour
         {
             if(towerHit)
             {
-                Debug.Log("Tower Hittttttttttttttttttttttttttttttttttttttt");
-                towerHit.transform.gameObject.GetComponent<Tower>().UpgradeSkill(1);
+                buyingPharse = false;
+                clickbuytower = false;
             }
         }
+    }
 
+    public void PrepareUpgradeTower()
+    {
+        Vector2 mousePosition = GetMousePosition();
+
+        RaycastHit2D towerHit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, towerMask, -100, 100);
+        RaycastHit2D UIHit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 1.0f);
+        RaycastHit2D legalHit = Physics2D.Raycast(mousePosition, new Vector2(0, 0), 0.1f, placableMask, -100, 100);
+
+        if(towerHit)
+        {
+            bool switchShop = gameObject.GetComponent<HidePanel>().switchShop();
+            if(switchShop)
+            {
+                gameObject.GetComponent<HidePanel>().showUpgrade(towerHit.transform.gameObject.GetComponent<Tower>());
+                Tower towerObj = towerHit.transform.gameObject.GetComponent<Tower>();
+                int[] skillUpgraded =  towerObj.GetAllSkillUpgraded();
+                int mainSkill = -1;
+                int secondSkill = -1;
+                bool isMainEqualSecond = false;
+                for(int i = 0; i < 3; i++)
+                {
+                    if(skillUpgraded[i] >= 1 && mainSkill == -1)
+                    {
+                        mainSkill = i;
+                    }
+                    else if(skillUpgraded[i] > 2 && mainSkill != -1)
+                    {
+                        secondSkill = mainSkill;
+                        mainSkill = i;
+                    }
+                    else if(skillUpgraded[i] >= 1 && mainSkill != -1)
+                    {
+                        secondSkill = i;
+                    } 
+                }
+                if(mainSkill != -1 && secondSkill != -1)
+                {
+                    if(skillUpgraded[mainSkill] <= 2 && skillUpgraded[secondSkill] <= 2)
+                    {
+                        isMainEqualSecond = true; 
+                    }
+                }
+                for(int i = 0; i < 3; i++)
+                {
+                    if(mainSkill == -1 || mainSkill == i || (isMainEqualSecond && (mainSkill == i || secondSkill == i)))
+                    {
+                        if(skillUpgraded[i] < 4)
+                        {
+                            string name = towerObj.GetSkillName(i, skillUpgraded[i]);
+                            string desc = towerObj.GetSkillDetail(i, skillUpgraded[i]);
+                            int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i]);
+                            buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, (skillUpgraded[i] + 1).ToString(), towerObj);
+                        }
+                        else
+                        {
+                            string name = towerObj.GetSkillName(i, skillUpgraded[i] - 1);
+                            string desc = towerObj.GetSkillDetail(i, skillUpgraded[i] - 1);
+                            int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i] - 1);
+                            buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+                        }
+                    }
+                    else if(secondSkill == -1 || secondSkill == i)
+                    {
+                        if(skillUpgraded[i] < 2)
+                        {
+                            string name = towerObj.GetSkillName(i, skillUpgraded[i]);
+                            string desc = towerObj.GetSkillDetail(i, skillUpgraded[i]);
+                            int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i]);
+                            buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, (skillUpgraded[i] + 1).ToString(), towerObj);
+                        }
+                        else
+                        {
+                            string name = towerObj.GetSkillName(i, skillUpgraded[i] - 1);
+                            string desc = towerObj.GetSkillDetail(i, skillUpgraded[i] - 1);
+                            int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i] - 1);
+                            buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+                        }
+                    }
+                    else
+                    {
+                        string name = towerObj.GetSkillName(i, 0);
+                        string desc = towerObj.GetSkillDetail(i, 0);
+                        int skillCost = towerObj.GetSkillCost(i, 0);
+                        buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+                    }
+                }
+            }
+        }
+        else if(UIHit)
+        {
+            gameObject.GetComponent<HidePanel>().switchShop();
+        }
+    }
+
+    public void upgradeTower(Tower towerObj, int skillNumber)
+    {
+        StatusController.userMoney -= towerObj.GetSkillCost(skillNumber, towerObj.GetSkillUpgraded(skillNumber));
+        towerObj.GetComponent<Tower>().UpgradeSkill(skillNumber);
+        int[] skillUpgraded =  towerObj.GetAllSkillUpgraded();
+        int mainSkill = -1;
+        int secondSkill = -1;
+        bool isMainEqualSecond = false;
+        for(int i = 0; i < 3; i++)
+        {
+            if(skillUpgraded[i] >= 1 && mainSkill == -1)
+            {
+                mainSkill = i;
+            }
+            else if(skillUpgraded[i] > 2 && mainSkill != -1)
+            {
+                secondSkill = mainSkill;
+                mainSkill = i;
+            }
+            else if(skillUpgraded[i] >= 1 && mainSkill != -1)
+            {
+                secondSkill = i;
+            } 
+        }
+        if(mainSkill != -1 && secondSkill != -1)
+        {
+            if(skillUpgraded[mainSkill] <= 2 && skillUpgraded[secondSkill] <= 2)
+            {
+                isMainEqualSecond = true; 
+            }
+        }
+        
+        for(int i = 0; i < 3; i++)
+        {
+            if(mainSkill == -1 || mainSkill == i || (isMainEqualSecond && (mainSkill == i || secondSkill == i)))
+            {
+                if(skillUpgraded[i] < 4)
+                {
+                    string name = towerObj.GetSkillName(i, skillUpgraded[i]);
+                    string desc = towerObj.GetSkillDetail(i, skillUpgraded[i]);
+                    int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i]);
+                    buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, (skillUpgraded[i] + 1).ToString(), towerObj);
+                }
+                else
+                {
+                    string name = towerObj.GetSkillName(i, skillUpgraded[i] - 1);
+                    string desc = towerObj.GetSkillDetail(i, skillUpgraded[i] - 1);
+                    int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i] - 1);
+                    buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+                }
+            }
+            else if(secondSkill == -1 || secondSkill == i)
+            {
+                if(skillUpgraded[i] < 2)
+                {
+                    string name = towerObj.GetSkillName(i, skillUpgraded[i]);
+                    string desc = towerObj.GetSkillDetail(i, skillUpgraded[i]);
+                    int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i]);
+                    buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, (skillUpgraded[i] + 1).ToString(), towerObj);
+                }
+                else
+                {
+                    string name = towerObj.GetSkillName(i, skillUpgraded[i] - 1);
+                    string desc = towerObj.GetSkillDetail(i, skillUpgraded[i] - 1);
+                    int skillCost = towerObj.GetSkillCost(i, skillUpgraded[i] - 1);
+                    buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+                }
+            }
+            else
+            {
+                string name = towerObj.GetSkillName(i, 0);
+                string desc = towerObj.GetSkillDetail(i, 0);
+                int skillCost = towerObj.GetSkillCost(i, 0);
+                buttonList[i].GetComponent<SkillButtonClick>().setSkill(name, skillCost, desc, "max", towerObj);
+            }
+        }
     }
 
     public void GetCurrentDirection()
@@ -129,7 +306,7 @@ public class TowerPlacement : MonoBehaviour
         }
         StatusController.userMoney -= buyingCost;
         buyingCost = 0;
-        buyingPharse = true;
+        buyingPharse = false;
         directionPharse = false;
         selectingTower = null;
     }
@@ -142,6 +319,7 @@ public class TowerPlacement : MonoBehaviour
     public static void PurchaseTurrent(int TowerType, int cost){
         TowerTypeNum = TowerType;
         buyingCost = cost;
+        buyingPharse = true;
         clickbuytower = true;
     }   
 
@@ -158,11 +336,14 @@ public class TowerPlacement : MonoBehaviour
             {
                 GetCurrentDirection();
             }
+            else
+            {
+                PrepareUpgradeTower();
+            }
             
         }
         if(TowerTypeNum == 1)
         {
-            Debug.Log("TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             if(buyingPharse && clickbuytower)
             {
                 selectingTower = swordsman;
@@ -210,49 +391,6 @@ public class TowerPlacement : MonoBehaviour
                 Debug.Log(selectingTower);
             }
         }
-        // if(Input.GetKeyDown(KeyCode.Alpha0))
-        // {
-        //     Debug.Log("TAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = null;
-        //     }
-        // }
-        // if(Input.GetKeyDown(KeyCode.Alpha1))
-        // {
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = swordsman;
-        //     }
-        // }
-        // if(Input.GetKeyDown(KeyCode.Alpha2))
-        // {
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = sniperMagician;
-        //     }
-        // }
-        // if(Input.GetKeyDown(KeyCode.Alpha3))
-        // {
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = sorcerer;
-        //     }
-        // }
-        // if(Input.GetKeyDown(KeyCode.Alpha4))
-        // {
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = archer;
-        //     }
-        // }
-        // if(Input.GetKeyDown(KeyCode.Alpha5))
-        // {
-        //     if(buyingPharse)
-        //     {
-        //         selectingTower = witch;
-        //     }
-        // }
         
     }
 }
