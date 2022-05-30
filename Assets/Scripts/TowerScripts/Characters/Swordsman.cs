@@ -66,7 +66,7 @@ public class Swordsman : Tower
 
         // if (!animator.GetCurrentAnimatorStateInfo(0).IsName("isAttackAnimation"))
         // {
-            Debug.Log("+++++++++++++++++++++++++++++ isAttack Animation work");
+            // Debug.Log("+++++++++++++++++++++++++++++ isAttack Animation work");
             animator.SetBool("isAttackAnimation", true);
         // }
     }
@@ -76,7 +76,7 @@ public class Swordsman : Tower
 
         // if (animator.GetCurrentAnimatorStateInfo(0).IsName("isAttackAnimation"))
         // {
-            // Debug.Log("------ ------- ------- ------- Idle Animation work" );
+            Debug.Log("------ ------- ------- ------- Idle Animation work" );
             animator.SetBool("isAttackAnimation", false);
         // }
         
